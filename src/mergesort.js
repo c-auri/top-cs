@@ -4,7 +4,7 @@ export function sort(array) {
 
     const { left, right } = split(array)
 
-    return merge(left, right)
+    return merge(sort(left), sort(right))
 }
 
 function split(array) {
