@@ -132,16 +132,16 @@ describe('Accessing a node at', () => {
     })
 })
 
-describe('Popping', () => {
+describe('Pop', () => {
     describe('from a non-empty list', () => {
-        test('list returns the tail', () => {
+        test('returns the tail', () => {
             const list = new LinkedList()
             list.append('head')
             list.append('middle')
             list.append('tail')
             expect(list.pop().value).toBe('tail')
         })
-        test('list removes the tail', () => {
+        test('removes the tail', () => {
             const list = new LinkedList()
             list.append('head')
             list.append('middle')
@@ -151,7 +151,7 @@ describe('Popping', () => {
         })
     })
     describe('from an empty list', () => {
-        test('returns an error', () => {
+        test('causes an error', () => {
             expect(() => new LinkedList().pop()).toThrow()
         })
     })
