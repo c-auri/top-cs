@@ -54,7 +54,7 @@ export class LinkedList {
 
     at(index) {
         if (index < 0) {
-            throw Error('index must be non-negative')
+            throw new Error('index must be non-negative')
         }
 
         if (index === 0) {
@@ -74,7 +74,7 @@ export class LinkedList {
 
     pop() {
         if (this.#head === null) {
-            throw Error('List is empty')
+            throw new Error('List is empty')
         }
 
         if (this.#head.nextNode === null) {
