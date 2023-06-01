@@ -52,6 +52,29 @@ export class LinkedList {
         this.#head = newHead
     }
 
+    insertAt(value, index) {
+        if (index < 0 || index >= this.size) {
+            throw new Error('index out of bounds')
+        }
+
+        if (index === 0) {
+            this.prepend(value)
+            return
+        }
+
+        if (index === this.size - 1) {
+            this.append(value)
+            return
+        }
+
+        const nodeToInsert = new Node(value)
+        const nodeBefore = this.at(index - 1)
+        const nodeAfter = nodeBefore.nextNode
+
+        nodeBefore.nextNode = nodeToInsert
+        nodeToInsert.nextNode = nodeAfter
+    }
+
     at(index) {
         if (index < 0) {
             throw new Error('index must be non-negative')
@@ -94,6 +117,24 @@ export class LinkedList {
         const result = current
         previous.nextNode = null
         return result
+    }
+
+    removeAt(index) {
+        if (index < 0 || index >= this.size) {
+            throw new Error('index out of bounds')
+        }
+
+        if (index === 0) {
+            this.#head = this.#head.nextNode
+            return
+        }
+
+        if (index === this.size - 1) {
+            this.pop()
+            return
+        }
+
+        this.at(index - 1).nextNode = this.at(index + 1)
     }
 
     contains(value) {
