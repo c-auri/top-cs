@@ -1,4 +1,4 @@
-import { sort } from '../src/mergesort'
+import { sort } from './mergesort'
 
 describe('mergesort sorts', () => {
     test('empty input', () => {
