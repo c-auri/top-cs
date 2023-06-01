@@ -124,11 +124,11 @@ describe('Accessing a node at', () => {
         list.append('tail')
         expect(list.at(2).value).toBe('tail')
     })
-    test('an index larger than the size of the list returns the tail', () => {
+    test('an index larger than the size of the list returns null', () => {
         const list = new LinkedList()
         list.append('head')
         list.append('tail')
-        expect(list.at(3).value).toBe(list.tail.value)
+        expect(list.at(3)).toBe(null)
     })
 })
 

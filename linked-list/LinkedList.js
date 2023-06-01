@@ -64,7 +64,7 @@ export class LinkedList {
         let currentNode = this.#head
         let currentPosition = 0
 
-        while (index !== currentPosition && currentNode !== null && currentNode.nextNode !== null) {
+        while (index !== currentPosition && currentNode !== null) {
             currentNode = currentNode.nextNode
             currentPosition++
         }
