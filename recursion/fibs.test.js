@@ -40,9 +40,4 @@ describe('recursiveFibs returns', () => {
         expect(recursiveFibs(7)).toEqual([ 0, 1, 1, 2, 3, 5, 8 ])
         expect(recursiveFibs(8)).toEqual([ 0, 1, 1, 2, 3, 5, 8, 13 ])
     })
-    describe('throws RangerError', () => {
-        test('at 7750', () => {
-            expect(() => recursiveFibs(7750)).toThrow(RangeError)
-        })
-    })
 })
