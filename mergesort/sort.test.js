@@ -1,6 +1,6 @@
-import { sort } from './mergesort'
+import { sort } from './sort'
 
-describe('mergesort sorts', () => {
+describe('sorts', () => {
     test('empty input', () => {
         expect(sort([])).toEqual([])
     })
