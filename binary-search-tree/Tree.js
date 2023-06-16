@@ -31,3 +31,29 @@ export function find(node, key) {
         return find(node.right, key)
     }
 }
+
+export function insert(node, key) {
+    if (node === null) {
+        return new Node(key)
+    }
+
+    if (node.data === key) {
+        return
+    }
+
+    if (node.data > key) {
+        if (node.left === null) {
+            node.left = new Node(key)
+        } else {
+            insert(node.left, key)
+        }
+    }
+
+    if (node.data < key) {
+        if (node.right === null) {
+            node.right = new Node(key)
+        } else {
+            insert(node.right, key)
+        }
+    }
+}
