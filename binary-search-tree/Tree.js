@@ -1,11 +1,27 @@
 import { Node } from "./Node"
 import { sort } from "../mergesort/sort.js"
 
-export function buildTree(array, start, end) {
-    if (start === 0 && end === array.length - 1) {
-        array = sort(array)
+export class Tree {
+    #root
+
+    constructor(array) {
+        this.#root = buildTree(sort(array), 0, array.length - 1)
     }
 
+    get root() {
+        return this.#root
+    }
+
+    find(key) {
+        return find(this.#root, key)
+    }
+
+    insert(key) {
+        insert(this.#root, key)
+    }
+}
+
+function buildTree(array, start, end) {
     if (start > end) {
         return null
     }
@@ -18,7 +34,7 @@ export function buildTree(array, start, end) {
         buildTree(array, middle + 1, end))
 }
 
-export function find(node, key) {
+function find(node, key) {
     if (node === null || node.data === key) {
         return node
     }
@@ -32,7 +48,7 @@ export function find(node, key) {
     }
 }
 
-export function insert(node, key) {
+function insert(node, key) {
     if (node === null) {
         return new Node(key)
     }
