@@ -1,4 +1,4 @@
-import { buildTree } from './Tree'
+import { buildTree, find } from './Tree'
 
 function prettyPrint(node, prefix = "", isLeft = true) {
     if (node === null) {
@@ -16,5 +16,5 @@ function prettyPrint(node, prefix = "", isLeft = true) {
     }
 }
 
-const tree = buildTree([1, 3, 5, 7], 0, 3)
+const tree = buildTree([ 3, 1, 7, 5 ], 0, 3)
 prettyPrint(tree)

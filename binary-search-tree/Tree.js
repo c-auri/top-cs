@@ -17,3 +17,17 @@ export function buildTree(array, start, end) {
         buildTree(array, start, middle - 1),
         buildTree(array, middle + 1, end))
 }
+
+export function find(node, key) {
+    if (node === null || node.data === key) {
+        return node
+    }
+
+    if (node.data > key) {
+        return find(node.left, key)
+    }
+
+    if (node.data < key) {
+        return find(node.right, key)
+    }
+}
