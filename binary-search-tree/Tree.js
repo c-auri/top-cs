@@ -19,6 +19,39 @@ export class Tree {
     insert(key) {
         insert(this.#root, key)
     }
+
+    delete(key) {
+        const parent = findParent(this.#root, key)
+
+        if (parent === null) {
+            return
+        }
+
+        const targetIsLeft = parent.data > key
+        const target = targetIsLeft ? parent.left : parent.right
+
+        if (target.isLeaf) {
+            if (targetIsLeft) {
+                parent.removeLeft()
+            } else {
+                parent.removeRight()
+            }
+        } else if (!target.hasRight) {
+            if (targetIsLeft) {
+                parent.left = target.left
+            } else {
+                parent.right = target.left
+            }
+        } else if (!target.hasLeft) {
+            if (targetIsLeft) {
+                parent.left = target.right
+            } else {
+                parent.right = target.right
+            }
+        } else {
+            // TODO: target has both children
+        }
+    }
 }
 
 function buildTree(array, start, end) {
@@ -45,6 +78,20 @@ function find(node, key) {
 
     if (node.data < key) {
         return find(node.right, key)
+    }
+}
+
+function findParent(node, key) {
+    if (node === null || node.left?.data === key || node.right?.data === key) {
+        return node
+    }
+
+    if (node.data > key) {
+        return findParent(node.left, key)
+    }
+
+    if (node.data < key) {
+        return findParent(node.right, key)
     }
 }
 

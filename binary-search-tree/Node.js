@@ -12,4 +12,24 @@ export class Node {
     get data() {
         return this.#data
     }
+
+    get isLeaf() {
+        return this.left === null && this.right === null
+    }
+
+    get hasLeft() {
+        return this.left !== null
+    }
+
+    get hasRight() {
+        return this.right !== null
+    }
+
+    removeLeft() {
+        this.left = null
+    }
+
+    removeRight() {
+        this.right = null
+    }
 }

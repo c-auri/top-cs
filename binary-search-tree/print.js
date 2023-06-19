@@ -5,6 +5,8 @@ tree.insert(2)
 tree.insert(6)
 tree.insert(4)
 print(tree)
+tree.delete(7)
+print(tree)
 
 
 function print(tree) {
