@@ -23,11 +23,9 @@ export class Tree {
     delete(key) {
         const { target, parent } = find(this.#root, key)
 
-        if (target === null) {
-            return
+        if (target) {
+            remove(target, parent)
         }
-
-        remove(target, parent)
     }
 }
 
@@ -44,25 +42,17 @@ function buildTree(array, start, end) {
         buildTree(array, middle + 1, end))
 }
 
-function find(node, key) {
+function find(node, key, parent = null) {
     if (node === null || node.data === key) {
-        return { target: node, parent: null }
+        return { target: node, parent: parent }
     }
 
     if (node.data > key) {
-        if (node.left?.data === key) {
-            return { target: node.left, parent: node }
-        } else {
-            return find(node.left, key)
-        }
+        return find(node.left, key, node)
     }
 
     if (node.data < key) {
-        if (node.right?.data === key) {
-            return { target: node.right, parent: node }
-        } else {
-            return find(node.right, key)
-        }
+        return find(node.right, key, node)
     }
 }
 
@@ -71,48 +61,24 @@ function insert(node, key) {
         return new Node(key)
     }
 
-    if (node.data === key) {
-        return
-    }
-
     if (node.data > key) {
-        if (!node.hasLeft) {
-            node.left = new Node(key)
-        } else {
-            insert(node.left, key)
-        }
+        node.hasLeft ? insert(node.left, key) : node.left = new Node(key)
     }
 
     if (node.data < key) {
-        if (!node.hasRight) {
-            node.right = new Node(key)
-        } else {
-            insert(node.right, key)
-        }
+        node.hasRight ? insert(node.right, key) : node.right = new Node(key)
     }
 }
 
 function remove(target, parent) {
-    const targetIsLeft = parent?.left?.data === target.data
+    const isLeftChild = parent?.left?.data === target.data
 
-    if (target?.isLeaf) {
-        if (targetIsLeft) {
-            parent.removeLeft()
-        } else {
-            parent.removeRight()
-        }
-    } else if (!target?.hasRight) {
-        if (targetIsLeft) {
-            parent.left = target.left
-        } else {
-            parent.right = target.left
-        }
-    } else if (!target?.hasLeft) {
-        if (targetIsLeft) {
-            parent.left = target.right
-        } else {
-            parent.right = target.right
-        }
+    if (target.isLeaf) {
+        isLeftChild ? parent.removeLeft() : parent.removeRight()
+    } else if (!target.hasRight) {
+        isLeftChild ? parent.left = target.left : parent.right = target.left
+    } else if (!target.hasLeft) {
+        isLeftChild ? parent.left = target.right : parent.right = target.right
     } else {
         const { successor, successorParent } = findInorderSuccessor(target)
         successorParent.left = successor.right

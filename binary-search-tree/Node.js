@@ -9,16 +9,16 @@ export class Node {
         this.right = right
     }
 
-    get isLeaf() {
-        return !this.hasLeft && !this.hasRight
-    }
-
     get hasLeft() {
         return this.left !== null
     }
 
     get hasRight() {
         return this.right !== null
+    }
+
+    get isLeaf() {
+        return !this.hasLeft && !this.hasRight
     }
 
     removeLeft() {
