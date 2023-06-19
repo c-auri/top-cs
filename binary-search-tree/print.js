@@ -5,10 +5,11 @@ tree.insert(2)
 tree.insert(6)
 tree.insert(4)
 print(tree)
-console.log("Looking for 7: " + tree.find(7))
-tree.delete(7)
+const key = 5
+console.log("About to delete: " + tree.find(key))
+tree.delete(key)
 print(tree)
-console.log("Looking for 7: " + tree.find(7))
+console.log(tree.find(key) === null ? "Successfully deleted." : tree.find(key))
 
 
 function print(tree) {

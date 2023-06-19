@@ -114,6 +114,24 @@ function remove(target, parent) {
             parent.right = target.right
         }
     } else {
-        // TODO: target has both children
+        const { successor, successorParent } = findInorderSuccessor(target)
+        successorParent.left = successor.right
+        target.data = successor.data
     }
+}
+
+function findInorderSuccessor(node) {
+    if (!node.hasRight) {
+        return { successor: null, successorParent: null }
+    }
+
+    let parent = node
+    let result = node.right
+
+    while (result.hasLeft) {
+        parent = result
+        result = result.left
+    }
+
+    return { successor: result, successorParent: parent }
 }
