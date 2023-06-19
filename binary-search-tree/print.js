@@ -5,7 +5,7 @@ tree.insert(2)
 tree.insert(6)
 tree.insert(4)
 print(tree)
-const key = 5
+const key = 3
 console.log("About to delete: " + tree.find(key))
 tree.delete(key)
 print(tree)

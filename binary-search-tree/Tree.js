@@ -93,21 +93,21 @@ function insert(node, key) {
 }
 
 function remove(target, parent) {
-    const targetIsLeft = parent.left?.data === target.data
+    const targetIsLeft = parent?.left?.data === target.data
 
-    if (target.isLeaf) {
+    if (target?.isLeaf) {
         if (targetIsLeft) {
             parent.removeLeft()
         } else {
             parent.removeRight()
         }
-    } else if (!target.hasRight) {
+    } else if (!target?.hasRight) {
         if (targetIsLeft) {
             parent.left = target.left
         } else {
             parent.right = target.left
         }
-    } else if (!target.hasLeft) {
+    } else if (!target?.hasLeft) {
         if (targetIsLeft) {
             parent.left = target.right
         } else {
