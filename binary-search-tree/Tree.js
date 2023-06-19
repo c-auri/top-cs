@@ -1,10 +1,11 @@
 import { Node } from "./Node"
+import { LinkedList } from "../linked-list/LinkedList"
 import { sort } from "../mergesort/sort.js"
 
 export class Tree {
     #root
 
-    constructor(array) {
+    constructor(array = []) {
         this.#root = buildTree(sort(array), 0, array.length - 1)
     }
 
@@ -26,6 +27,30 @@ export class Tree {
         if (target) {
             remove(target, parent)
         }
+    }
+
+    levelOrder(callback = (node) => node.data) {
+        if (this.#root === null) {
+            return []
+        }
+
+        const result = new LinkedList()
+        result.append(this.root)
+        let current = result.at(0)
+
+        while (current !== null) {
+            if (current.value.hasLeft) {
+                result.append(current.value.left)
+            }
+
+            if (current.value.hasRight) {
+                result.append(current.value.right)
+            }
+
+            current = current.nextNode
+        }
+
+        return result.toArray().map(callback)
     }
 }
 

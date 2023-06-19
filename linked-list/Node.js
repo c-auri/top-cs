@@ -3,4 +3,8 @@ export class Node {
         this.value = value
         this.nextNode = nextNode
     }
+
+    get hasNext() {
+        return this.nextNode !== null
+    }
 }
