@@ -435,3 +435,13 @@ describe('ToString', () => {
         expect(list.toString().slice(-4)).toBe('null')
     })
 })
+
+describe('ToArray', () => {
+    test('contains all node values and nothing else', () => {
+        const list = new LinkedList()
+        list.append('head')
+        list.append('middle')
+        list.append('tail')
+        expect(list.toArray()).toEqual(['head', 'middle', 'tail'])
+    })
+})

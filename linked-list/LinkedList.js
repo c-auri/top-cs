@@ -190,4 +190,16 @@ export class LinkedList {
 
         return result
     }
+
+    toArray() {
+        const result = []
+        let current = this.#head
+
+        while (current !== null) {
+            result.push(current.value)
+            current = current.nextNode
+        }
+
+        return result
+    }
 }
