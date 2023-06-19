@@ -27,30 +27,7 @@ export class Tree {
             return
         }
 
-        const targetIsLeft = parent.data > key
-        const target = targetIsLeft ? parent.left : parent.right
-
-        if (target.isLeaf) {
-            if (targetIsLeft) {
-                parent.removeLeft()
-            } else {
-                parent.removeRight()
-            }
-        } else if (!target.hasRight) {
-            if (targetIsLeft) {
-                parent.left = target.left
-            } else {
-                parent.right = target.left
-            }
-        } else if (!target.hasLeft) {
-            if (targetIsLeft) {
-                parent.left = target.right
-            } else {
-                parent.right = target.right
-            }
-        } else {
-            // TODO: target has both children
-        }
+        remove(parent, key)
     }
 }
 
@@ -118,5 +95,32 @@ function insert(node, key) {
         } else {
             insert(node.right, key)
         }
+    }
+}
+
+function remove(parent, key) {
+    const targetIsLeft = parent.data > key
+    const target = targetIsLeft ? parent.left : parent.right
+
+    if (target.isLeaf) {
+        if (targetIsLeft) {
+            parent.removeLeft()
+        } else {
+            parent.removeRight()
+        }
+    } else if (!target.hasRight) {
+        if (targetIsLeft) {
+            parent.left = target.left
+        } else {
+            parent.right = target.left
+        }
+    } else if (!target.hasLeft) {
+        if (targetIsLeft) {
+            parent.left = target.right
+        } else {
+            parent.right = target.right
+        }
+    } else {
+        // TODO: target has both children
     }
 }
