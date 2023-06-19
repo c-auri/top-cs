@@ -228,6 +228,31 @@ describe('Pop', () => {
     })
 })
 
+describe('Shift', () => {
+    describe('from a non-empty list', () => {
+        test('returns the head', () => {
+            const list = new LinkedList()
+            list.append('head')
+            list.append('middle')
+            list.append('tail')
+            expect(list.shift().value).toBe('head')
+        })
+        test('removes the head', () => {
+            const list = new LinkedList()
+            list.append('head')
+            list.append('middle')
+            list.append('tail')
+            list.shift()
+            expect(list.head.value).toBe('middle')
+        })
+    })
+    describe('from an empty list', () => {
+        test('causes an error', () => {
+            expect(() => new LinkedList().shift()).toThrow()
+        })
+    })
+})
+
 describe('Removing', () => {
     describe('causes error', () => {
         test('for a negative index', () => {

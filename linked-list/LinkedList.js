@@ -137,6 +137,16 @@ export class LinkedList {
         this.at(index - 1).nextNode = this.at(index + 1)
     }
 
+    shift() {
+        if (this.#head === null) {
+            throw new Error('List is empty')
+        }
+
+        const head = this.#head
+        this.removeAt(0)
+        return head
+    }
+
     contains(value) {
         let current = this.#head
 
