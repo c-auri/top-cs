@@ -32,4 +32,12 @@ export class Node {
     removeRight() {
         this.right = null
     }
+
+    toString() {
+        return "{ " +
+            `data: ${this.data}, ` +
+            `left: ${this.left?.data ?? "null"}, ` +
+            `right: ${this.right?.data ?? "null"}` +
+        " }"
+    }
 }

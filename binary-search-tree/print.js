@@ -5,8 +5,10 @@ tree.insert(2)
 tree.insert(6)
 tree.insert(4)
 print(tree)
+console.log("Looking for 7: " + tree.find(7))
 tree.delete(7)
 print(tree)
+console.log("Looking for 7: " + tree.find(7))
 
 
 function print(tree) {

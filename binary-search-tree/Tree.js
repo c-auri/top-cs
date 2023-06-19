@@ -13,7 +13,7 @@ export class Tree {
     }
 
     find(key) {
-        return find(this.#root, key)
+        return find(this.#root, key).target
     }
 
     insert(key) {
@@ -21,13 +21,13 @@ export class Tree {
     }
 
     delete(key) {
-        const parent = findParent(this.#root, key)
+        const { target, parent } = find(this.#root, key)
 
-        if (parent === null) {
+        if (target === null) {
             return
         }
 
-        remove(parent, key)
+        remove(target, parent)
     }
 }
 
@@ -46,29 +46,23 @@ function buildTree(array, start, end) {
 
 function find(node, key) {
     if (node === null || node.data === key) {
-        return node
+        return { target: node, parent: null }
     }
 
     if (node.data > key) {
-        return find(node.left, key)
+        if (node.left?.data === key) {
+            return { target: node.left, parent: node }
+        } else {
+            return find(node.left, key)
+        }
     }
 
     if (node.data < key) {
-        return find(node.right, key)
-    }
-}
-
-function findParent(node, key) {
-    if (node === null || node.left?.data === key || node.right?.data === key) {
-        return node
-    }
-
-    if (node.data > key) {
-        return findParent(node.left, key)
-    }
-
-    if (node.data < key) {
-        return findParent(node.right, key)
+        if (node.right?.data === key) {
+            return { target: node.right, parent: node }
+        } else {
+            return find(node.right, key)
+        }
     }
 }
 
@@ -98,9 +92,8 @@ function insert(node, key) {
     }
 }
 
-function remove(parent, key) {
-    const targetIsLeft = parent.data > key
-    const target = targetIsLeft ? parent.left : parent.right
+function remove(target, parent) {
+    const targetIsLeft = parent.left?.data === target.data
 
     if (target.isLeaf) {
         if (targetIsLeft) {
