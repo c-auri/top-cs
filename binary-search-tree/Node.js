@@ -14,7 +14,7 @@ export class Node {
     }
 
     get isLeaf() {
-        return this.left === null && this.right === null
+        return !this.hasLeft && !this.hasRight
     }
 
     get hasLeft() {

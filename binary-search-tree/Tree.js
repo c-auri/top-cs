@@ -105,7 +105,7 @@ function insert(node, key) {
     }
 
     if (node.data > key) {
-        if (node.left === null) {
+        if (!node.hasLeft) {
             node.left = new Node(key)
         } else {
             insert(node.left, key)
@@ -113,7 +113,7 @@ function insert(node, key) {
     }
 
     if (node.data < key) {
-        if (node.right === null) {
+        if (!node.hasRight) {
             node.right = new Node(key)
         } else {
             insert(node.right, key)
