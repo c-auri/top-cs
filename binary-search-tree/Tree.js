@@ -42,23 +42,7 @@ export class Tree {
             return []
         }
 
-        const result = new LinkedList()
-        result.append(this.root)
-        let current = result.at(0)
-
-        while (current !== null) {
-            if (current.value.hasLeft) {
-                result.append(current.value.left)
-            }
-
-            if (current.value.hasRight) {
-                result.append(current.value.right)
-            }
-
-            current = current.nextNode
-        }
-
-        return result.toArray().map(callback)
+        return this.#root.levelOrder().toArray().map(callback)
     }
 
     inorder(callback = (node) => node.data) {

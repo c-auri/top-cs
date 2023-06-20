@@ -58,6 +58,26 @@ export class Node {
         this.right = null
     }
 
+    levelOrder() {
+        const result = new LinkedList()
+        result.append(this)
+        let current = result.at(0)
+
+        while (current !== null) {
+            if (current.value.hasLeft) {
+                result.append(current.value.left)
+            }
+
+            if (current.value.hasRight) {
+                result.append(current.value.right)
+            }
+
+            current = current.nextNode
+        }
+
+        return result
+    }
+
     inorder() {
         const result = new LinkedList()
 
