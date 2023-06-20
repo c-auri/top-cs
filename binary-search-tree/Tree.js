@@ -14,26 +14,24 @@ export class Tree {
     }
 
     get height() {
-        if (this.#root === null) {
-            return 0
-        } else {
-            return this.#root.height
-        }
+        return this.#root?.height ?? 0
     }
 
     find(key) {
-        return find(this.#root, key).target
+        return this.#root?.find(key).target ?? null
     }
 
     insert(key) {
-        insert(this.#root, key)
+        return this.#root.insert(key)
     }
 
     delete(key) {
-        const { target, parent } = find(this.#root, key)
+        const { target, parent } = this.#root.find(key)
 
-        if (target) {
-            remove(target, parent)
+        if (target && parent) {
+            parent.deleteChild(target)
+        } else if (target) {
+            this.#root.delete()
         }
     }
 
@@ -81,64 +79,4 @@ function buildTree(array, start, end) {
         array[middle],
         buildTree(array, start, middle - 1),
         buildTree(array, middle + 1, end))
-}
-
-function find(node, key, parent = null) {
-    if (node === null || node.data === key) {
-        return { target: node, parent: parent }
-    }
-
-    if (node.data > key) {
-        return find(node.left, key, node)
-    }
-
-    if (node.data < key) {
-        return find(node.right, key, node)
-    }
-}
-
-function insert(node, key) {
-    if (node === null) {
-        return new Node(key)
-    }
-
-    if (node.data > key) {
-        node.hasLeft ? insert(node.left, key) : node.left = new Node(key)
-    }
-
-    if (node.data < key) {
-        node.hasRight ? insert(node.right, key) : node.right = new Node(key)
-    }
-}
-
-function remove(target, parent) {
-    const isLeftChild = parent?.left?.data === target.data
-
-    if (target.isLeaf) {
-        isLeftChild ? parent.removeLeft() : parent.removeRight()
-    } else if (!target.hasRight) {
-        isLeftChild ? parent.left = target.left : parent.right = target.left
-    } else if (!target.hasLeft) {
-        isLeftChild ? parent.left = target.right : parent.right = target.right
-    } else {
-        const { successor, successorParent } = findInorderSuccessor(target)
-        successorParent.left = successor.right
-        target.data = successor.data
-    }
-}
-
-function findInorderSuccessor(node) {
-    if (!node.hasRight) {
-        return { successor: null, successorParent: null }
-    }
-
-    let parent = node
-    let result = node.right
-
-    while (result.hasLeft) {
-        parent = result
-        result = result.left
-    }
-
-    return { successor: result, successorParent: parent }
 }

@@ -50,12 +50,50 @@ export class Node {
         return height
     }
 
-    removeLeft() {
-        this.left = null
+    find(key, parent = null) {
+        if (this.data === key) {
+            return { target: this, parent: parent }
+        } else if (this.data < key && this.hasRight) {
+            return this.right.find(key, this)
+        } else if (this.data > key && this.hasLeft) {
+            return this.left.find(key, this)
+        } else {
+            return { target: null, parent: null }
+        }
     }
 
-    removeRight() {
-        this.right = null
+    insert(key) {
+        if (this.data > key) {
+            this.hasLeft ? this.left.insert(key) : this.left = new Node(key)
+        }
+
+        if (this.data < key) {
+            this.hasRight ? this.right.insert(key) : this.right = new Node(key)
+        }
+    }
+
+    delete() {
+        const { successor, successorParent } = this.#findInorderSuccessor()
+        successorParent.left = successor.right
+        this.data = successor.data
+    }
+
+    deleteChild(child) {
+        const isLeftChild = this.left?.data === child.data
+
+        if (!isLeftChild && this.right?.data !== child.data) {
+            return
+        }
+
+        if (child.isLeaf) {
+            isLeftChild ? this.left = null : this.right = null
+        } else if (!child.hasRight) {
+            isLeftChild ? this.left = child.left : this.right = child.left
+        } else if (!child.hasLeft) {
+            isLeftChild ? this.left = child.right : this.right = child.right
+        } else {
+            child.delete()
+        }
     }
 
     levelOrder() {
@@ -132,5 +170,21 @@ export class Node {
             `left: ${this.left?.data ?? "null"}, ` +
             `right: ${this.right?.data ?? "null"}` +
         " }"
+    }
+
+    #findInorderSuccessor() {
+        if (!this.hasRight) {
+            return { successor: null, successorParent: null }
+        }
+
+        let parent = this
+        let result = this.right
+
+        while (result.hasLeft) {
+            parent = result
+            result = result.left
+        }
+
+        return { successor: result, successorParent: parent }
     }
 }
