@@ -255,7 +255,7 @@ describe('Shift', () => {
     describe('from a non-empty list', () => {
         test('returns the head', () => {
             const list = new LinkedList('head', 'middle', 'tail')
-            expect(list.shift().value).toBe('head')
+            expect(list.shift()).toBe('head')
         })
         test('removes the head', () => {
             const list = new LinkedList('head', 'middle', 'tail')

@@ -160,7 +160,7 @@ export class LinkedList {
 
         const head = this.#head
         this.removeAt(0)
-        return head
+        return head.value
     }
 
     contains(value) {
