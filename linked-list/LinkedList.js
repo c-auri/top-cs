@@ -3,8 +3,12 @@ import { Node } from './Node'
 export class LinkedList {
     #head
 
-    constructor() {
+    constructor(...values) {
         this.#head = null
+
+        for (const value of values) {
+            this.append(value)
+        }
     }
 
     get head() {
