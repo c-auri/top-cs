@@ -46,6 +46,17 @@ describe('isBalanced', () => {
     })
 })
 
+describe('rebalance', () => {
+    test('balances unbalanced tree', () => {
+        const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+        tree.delete(6)
+        tree.insert(6)
+        expect(tree.isBalanced).toBe(false)
+        tree.rebalance()
+        expect(tree.isBalanced).toBe(true)
+    })
+})
+
 describe('depth', () => {
     describe('is falsy', () => {
         test('for value that does not exist in tree', () => {

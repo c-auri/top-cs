@@ -43,6 +43,11 @@ export class Tree {
         }
     }
 
+    rebalance() {
+        const values = this.inorder()
+        this.#root = buildTree(values, 0, values.length - 1)
+    }
+
     levelOrder(callback = (node) => node.data) {
         if (this.#root === null) {
             return []

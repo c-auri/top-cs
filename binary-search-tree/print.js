@@ -1,13 +1,10 @@
 import { Tree } from './Tree'
 
-const values = Array.from({length: 31}, (_, i) => i + 1)
+const values = Array.from({length: 7}, (_, i) => i + 1)
 const tree = new Tree(...values)
-tree.delete(10)
-tree.delete(11)
-tree.insert(10)
-tree.insert(11)
-print(tree)
-tree.delete(8)
+tree.delete(6)
+tree.insert(6)
+tree.rebalance()
 print(tree)
 
 function print(tree) {
