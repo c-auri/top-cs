@@ -56,6 +56,18 @@ export class LinkedList {
         this.#head = newHead
     }
 
+    concat(other) {
+        if (other.size === 0) {
+            return
+        }
+
+        if (this.size === 0) {
+            this.#head = other.head
+        } else {
+            this.tail.nextNode = other.head
+        }
+    }
+
     insertAt(value, index) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')

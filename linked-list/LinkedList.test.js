@@ -160,6 +160,56 @@ describe('Inserting at', () => {
     })
 })
 
+describe('Concat', () => {
+    describe('two empty lists', ()=> {
+        test('returns the empty list', ()=> {
+            const list = new LinkedList()
+            list.concat(new LinkedList())
+            expect(list).toEqual(new LinkedList())
+            expect(list.size).toBe(0)
+        })
+    })
+    describe('an empty list to a non-empty list', () => {
+        test('does not change the non-empty list', () => {
+            const list = new LinkedList('head', 'tail')
+            list.concat(new LinkedList())
+            expect(list).toEqual(new LinkedList('head', 'tail'))
+            expect(list.size).toBe(2)
+        })
+    })
+    describe('a non-empty list to an empty list', () => {
+        test('appends the values of the non-empty list to the empty list', () => {
+            const list = new LinkedList()
+            list.concat(new LinkedList('head', 'tail'))
+            expect(list).toEqual(new LinkedList('head', 'tail'))
+            expect(list.size).toBe(2)
+        })
+        test('does not change the non-empty list', () => {
+            const list1 = new LinkedList()
+            const list2 = new LinkedList('head', 'tail')
+            list1.concat(list2)
+            expect(list2).toEqual(new LinkedList('head', 'tail'))
+            expect(list2.size).toBe(2)
+        })
+    })
+    describe('two non-empty lists', ()=> {
+        test('appends the values of the second list to the first', () => {
+            const list1 = new LinkedList('head1', 'tail1')
+            const list2 = new LinkedList('head2', 'tail2')
+            list1.concat(list2)
+            expect(list1).toEqual(new LinkedList('head1', 'tail1', 'head2', 'tail2'))
+            expect(list1.size).toBe(4)
+        })
+        test('does not change the second list', () => {
+            const list1 = new LinkedList('head1', 'tail1')
+            const list2 = new LinkedList('head2', 'tail2')
+            list1.concat(list2)
+            expect(list2).toEqual(new LinkedList('head2', 'tail2'))
+            expect(list2.size).toBe(2)
+        })
+    })
+})
+
 describe('Accessing a node at', () => {
     test('a negative index causes an error', () => {
         expect(() => new LinkedList().at(-1)).toThrow()
