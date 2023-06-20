@@ -101,7 +101,13 @@ export class Node {
 
     delete() {
         const { successor, successorParent } = this.#findInorderSuccessor()
-        successorParent.left = successor.right
+
+        if (successorParent.data === this.data) {
+            this.right = successor.right
+        } else {
+            successorParent.left = successor.right
+        }
+
         this.data = successor.data
     }
 

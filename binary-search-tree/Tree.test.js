@@ -144,6 +144,16 @@ describe('delete', () => {
             tree.delete(2)
             expect(tree.find(2)).toBeFalsy()
         })
+        test('when passed value of node with two children and inorder successor has a child', () => {
+            const inorderValues = Array.from({length: 31}, (_, i) => i + 1)
+            const tree = new Tree(...inorderValues)
+            tree.delete(10)
+            tree.delete(11)
+            tree.insert(10)
+            tree.insert(11)
+            tree.delete(8)
+            expect(tree.find(8)).toBeFalsy()
+        })
     })
     describe('keeps other nodes', () => {
         test('when passed root value', () => {
@@ -182,39 +192,38 @@ describe('delete', () => {
             const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(4)
-            expect(tree.find(1)).toBeTruthy()
-            expect(tree.find(2)).toBeTruthy()
-            expect(tree.find(3)).toBeTruthy()
-            expect(tree.find(5)).toBeTruthy()
-            expect(tree.find(6)).toBeTruthy()
-            expect(tree.find(7)).toBeTruthy()
-            expect(tree.find(8)).toBeTruthy()
-            expect(tree.find(9)).toBeTruthy()
-            expect(tree.find(10)).toBeTruthy()
-            expect(tree.find(11)).toBeTruthy()
-            expect(tree.find(12)).toBeTruthy()
-            expect(tree.find(13)).toBeTruthy()
-            expect(tree.find(14)).toBeTruthy()
-            expect(tree.find(15)).toBeTruthy()
+
+            for (const value in inorderValues) {
+                if (value !== 4) {
+                    expect(tree.find(value)).toBeFalsy()
+                }
+            }
         })
         test('when passed value of node with two children that are not leafs', () => {
             const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(2)
-            expect(tree.find(1)).toBeTruthy()
-            expect(tree.find(3)).toBeTruthy()
-            expect(tree.find(4)).toBeTruthy()
-            expect(tree.find(5)).toBeTruthy()
-            expect(tree.find(6)).toBeTruthy()
-            expect(tree.find(7)).toBeTruthy()
-            expect(tree.find(8)).toBeTruthy()
-            expect(tree.find(9)).toBeTruthy()
-            expect(tree.find(10)).toBeTruthy()
-            expect(tree.find(11)).toBeTruthy()
-            expect(tree.find(12)).toBeTruthy()
-            expect(tree.find(13)).toBeTruthy()
-            expect(tree.find(14)).toBeTruthy()
-            expect(tree.find(15)).toBeTruthy()
+
+            for (const value in inorderValues) {
+                if (value !== 2) {
+                    expect(tree.find(value)).toBeFalsy()
+                }
+            }
+        })
+        test('when passed value of node with two children and inorder successor has a child', () => {
+            const inorderValues = Array.from({length: 31}, (_, i) => i + 1)
+            const tree = new Tree(...inorderValues)
+            tree.delete(10)
+            tree.delete(11)
+            tree.insert(10)
+            tree.insert(11)
+            tree.delete(8)
+
+            for (const value in inorderValues) {
+                if (value !== 8) {
+                    expect(tree.find(value)).toBeFalsy()
+                }
+            }
         })
     })
 })
