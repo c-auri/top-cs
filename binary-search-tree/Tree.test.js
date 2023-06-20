@@ -15,6 +15,173 @@ describe('height', () => {
     })
 })
 
+describe('find', () => {
+    describe('in empty tree', () => {
+        test('is falsy', () => {
+            const tree = new Tree()
+            expect(tree.find(1)).toBeFalsy()
+        })
+        test('returns null', () => {
+            const tree = new Tree()
+            expect(tree.find(1)).toBe(null)
+        })
+    })
+    describe('existing value', () => {
+        test('is truthy', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.find(1).data).toBeTruthy()
+        })
+        test('returns node with that value', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.find(1).data).toBe(1)
+        })
+    })
+    describe('non-existing value', () => {
+        test('is falsy', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.find(8)).toBeFalsy()
+        })
+        test('returns null', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.find(8)).toBe(null)
+        })
+    })
+})
+
+describe('insert', () => {
+    describe('existing value', () => {
+        test('does nothing', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.insert(3)
+            expect(tree.inorder()).toEqual(inorderValues)
+        })
+    })
+    describe('new value', () => {
+        test('inserts the value', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.insert(8)
+            expect(tree.inorder()).toEqual([...inorderValues, 8])
+        })
+    })
+})
+
+describe('delete', () => {
+    describe('does nothing', () => {
+        test('when passed non-existing value', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.delete(8)
+            expect(tree.inorder()).toEqual([...inorderValues])
+        })
+    })
+    describe('deletes node with given value', () => {
+        test('when passed root value', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.delete(4)
+            expect(tree.find(4)).toBeFalsy()
+        })
+        test('when passed value of leaf node', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.delete(3)
+            expect(tree.find(3)).toBeFalsy()
+        })
+        test('when passed value of node with one child', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6]
+            const tree = new Tree(...inorderValues)
+            tree.delete(1)
+            expect(tree.find(1)).toBeFalsy()
+        })
+        test('when passed value of node with two children that are leafs', () => {
+            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const tree = new Tree(...inorderValues)
+            tree.delete(4)
+            expect(tree.find(4)).toBeFalsy()
+        })
+        test('when passed value of node with two children that are not leafs', () => {
+            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const tree = new Tree(...inorderValues)
+            tree.delete(2)
+            expect(tree.find(2)).toBeFalsy()
+        })
+    })
+    describe('keeps other nodes', () => {
+        test('when passed root value', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.delete(4)
+            expect(tree.find(1)).toBeTruthy()
+            expect(tree.find(2)).toBeTruthy()
+            expect(tree.find(3)).toBeTruthy()
+            expect(tree.find(5)).toBeTruthy()
+            expect(tree.find(6)).toBeTruthy()
+            expect(tree.find(7)).toBeTruthy()
+        })
+        test('when passed value of leaf node', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6, 7]
+            const tree = new Tree(...inorderValues)
+            tree.delete(3)
+            expect(tree.find(1)).toBeTruthy()
+            expect(tree.find(2)).toBeTruthy()
+            expect(tree.find(4)).toBeTruthy()
+            expect(tree.find(5)).toBeTruthy()
+            expect(tree.find(6)).toBeTruthy()
+            expect(tree.find(7)).toBeTruthy()
+        })
+        test('when passed value of node with one child', () => {
+            const inorderValues = [1, 2, 3, 4, 5, 6]
+            const tree = new Tree(...inorderValues)
+            tree.delete(1)
+            expect(tree.find(2)).toBeTruthy()
+            expect(tree.find(3)).toBeTruthy()
+            expect(tree.find(4)).toBeTruthy()
+            expect(tree.find(5)).toBeTruthy()
+            expect(tree.find(6)).toBeTruthy()
+        })
+        test('when passed value of node with two children that are leafs', () => {
+            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const tree = new Tree(...inorderValues)
+            tree.delete(4)
+            expect(tree.find(1)).toBeTruthy()
+            expect(tree.find(2)).toBeTruthy()
+            expect(tree.find(3)).toBeTruthy()
+            expect(tree.find(5)).toBeTruthy()
+            expect(tree.find(6)).toBeTruthy()
+            expect(tree.find(7)).toBeTruthy()
+            expect(tree.find(8)).toBeTruthy()
+            expect(tree.find(9)).toBeTruthy()
+            expect(tree.find(10)).toBeTruthy()
+            expect(tree.find(11)).toBeTruthy()
+            expect(tree.find(12)).toBeTruthy()
+            expect(tree.find(13)).toBeTruthy()
+            expect(tree.find(14)).toBeTruthy()
+            expect(tree.find(15)).toBeTruthy()
+        })
+        test('when passed value of node with two children that are not leafs', () => {
+            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const tree = new Tree(...inorderValues)
+            tree.delete(2)
+            expect(tree.find(1)).toBeTruthy()
+            expect(tree.find(3)).toBeTruthy()
+            expect(tree.find(4)).toBeTruthy()
+            expect(tree.find(5)).toBeTruthy()
+            expect(tree.find(6)).toBeTruthy()
+            expect(tree.find(7)).toBeTruthy()
+            expect(tree.find(8)).toBeTruthy()
+            expect(tree.find(9)).toBeTruthy()
+            expect(tree.find(10)).toBeTruthy()
+            expect(tree.find(11)).toBeTruthy()
+            expect(tree.find(12)).toBeTruthy()
+            expect(tree.find(13)).toBeTruthy()
+            expect(tree.find(14)).toBeTruthy()
+            expect(tree.find(15)).toBeTruthy()
+        })
+    })
+})
+
 describe('levelOrder', () => {
     describe('without callback', () => {
         test('returns an empty array for the empty tree', () => {

@@ -1,8 +1,10 @@
 import { Tree } from './Tree'
 
-const tree = new Tree(5, 3, 2, 4, 1, 7, 6)
+const values = Array.from({length: 15}, (_, i) => i + 1)
+const tree = new Tree(...values)
 print(tree)
-console.log(tree.height)
+tree.delete(2)
+print(tree)
 
 function print(tree) {
     printNode(tree.root)
