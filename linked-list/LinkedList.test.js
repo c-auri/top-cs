@@ -91,18 +91,18 @@ describe('Prepending a value', () => {
         test('sets that value to the head', () => {
             const value = 'a new node'
             const list = new LinkedList()
-            list.append(value)
+            list.prepend(value)
             expect(list.head.value).toBe(value)
         })
         test('sets that value to the tail', () => {
             const value = 'a new node'
             const list = new LinkedList()
-            list.append(value)
+            list.prepend(value)
             expect(list.tail.value).toBe(value)
         })
         test('results in size 1', () => {
             const list = new LinkedList()
-            list.append('a new node')
+            list.prepend('a new node')
             expect(list.size).toBe(1)
         })
     })
