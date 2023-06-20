@@ -1,15 +1,7 @@
 import { Tree } from './Tree'
 
-const tree = new Tree([ 3, 1, 7, 5 ])
-tree.insert(2)
-tree.insert(6)
-tree.insert(4)
+const tree = new Tree(5, 3, 2, 4, 1, 7, 6)
 print(tree)
-const key = 3
-console.log("About to delete: " + tree.find(key))
-tree.delete(key)
-print(tree)
-console.log(tree.find(key) === null ? "Successfully deleted." : tree.find(key))
 
 
 function print(tree) {

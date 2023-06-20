@@ -5,8 +5,8 @@ import { sort } from "../mergesort/sort.js"
 export class Tree {
     #root
 
-    constructor(array = []) {
-        this.#root = buildTree(sort(array), 0, array.length - 1)
+    constructor(...values) {
+        this.#root = buildTree(sort(values), 0, values.length - 1)
     }
 
     get root() {
