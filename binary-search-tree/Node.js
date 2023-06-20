@@ -43,6 +43,13 @@ export class Node {
         return height
     }
 
+    get isBalanced() {
+        return this.isLeaf
+            || !this.hasLeft && this.right.height === 1
+            || !this.hasRight && this.left.height === 1
+            || this.hasLeft && this.hasRight && this.left.isBalanced && this.right.isBalanced
+    }
+
     depth(key) {
         let depth = 0
         let currentLevel = new LinkedList()

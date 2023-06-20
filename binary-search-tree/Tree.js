@@ -17,6 +17,10 @@ export class Tree {
         return this.#root?.height ?? 0
     }
 
+    get isBalanced() {
+        return this.#root?.isBalanced ?? true
+    }
+
     depth(key) {
         return this.#root?.depth(key) ?? null
     }
