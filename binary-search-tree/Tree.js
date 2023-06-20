@@ -13,6 +13,14 @@ export class Tree {
         return this.#root
     }
 
+    get height() {
+        if (this.#root === null) {
+            return 0
+        } else {
+            return this.#root.height
+        }
+    }
+
     find(key) {
         return find(this.#root, key).target
     }

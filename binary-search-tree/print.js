@@ -2,7 +2,7 @@ import { Tree } from './Tree'
 
 const tree = new Tree(5, 3, 2, 4, 1, 7, 6)
 print(tree)
-
+console.log(tree.height)
 
 function print(tree) {
     printNode(tree.root)

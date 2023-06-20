@@ -1,3 +1,5 @@
+import { LinkedList } from "../linked-list/LinkedList"
+
 export class Node {
     data
     left
@@ -19,6 +21,33 @@ export class Node {
 
     get isLeaf() {
         return !this.hasLeft && !this.hasRight
+    }
+
+    get height() {
+        let height = 0
+
+        let currentLevel = new LinkedList()
+        let nextLevel = new LinkedList(this)
+
+        while (nextLevel.size > 0) {
+            height++
+            currentLevel = nextLevel
+            nextLevel = new LinkedList()
+
+            while (currentLevel.size > 0) {
+                const node = currentLevel.shift()
+
+                if (node.hasLeft) {
+                    nextLevel.append(node.left)
+                }
+
+                if (node.hasRight) {
+                    nextLevel.append(node.right)
+                }
+            }
+        }
+
+        return height
     }
 
     removeLeft() {
