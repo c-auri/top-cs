@@ -52,6 +52,30 @@ export class Tree {
 
         return result.toArray().map(callback)
     }
+
+    inorder(callback = (node) => node.data) {
+        if (this.#root === null) {
+            return []
+        }
+
+        return this.#root.inorder().toArray().map(callback)
+    }
+
+    preorder(callback = (node) => node.data) {
+        if (this.#root === null) {
+            return []
+        }
+
+        return this.#root.preorder().toArray().map(callback)
+    }
+
+    postorder(callback = (node) => node.data) {
+        if (this.#root === null) {
+            return []
+        }
+
+        return this.#root.postorder().toArray().map(callback)
+    }
 }
 
 function buildTree(array, start, end) {
