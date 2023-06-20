@@ -15,6 +15,43 @@ describe('height', () => {
     })
 })
 
+describe('depth', () => {
+    describe('is falsy', () => {
+        test('for value that does not exist in tree', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.depth(8)).toBeFalsy()
+        })
+        test('for empty tree', () => {
+            const tree = new Tree()
+            expect(tree.depth(1)).toBeFalsy()
+        })
+    })
+    describe('returns null', () => {
+        test('for value that does not exist in tree', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.depth(8)).toBe(null)
+        })
+        test('for value that does not exist in tree', () => {
+            const tree = new Tree()
+            expect(tree.depth(1)).toBe(null)
+        })
+    })
+    describe('returns correct depth', () => {
+        test('for root value', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.depth(4)).toBe(0)
+        })
+        test('for middle value', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.depth(2)).toBe(1)
+        })
+        test('for leaf value', () => {
+            const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+            expect(tree.depth(1)).toBe(2)
+        })
+    })
+})
+
 describe('find', () => {
     describe('in empty tree', () => {
         test('is falsy', () => {

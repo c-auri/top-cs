@@ -25,29 +25,56 @@ export class Node {
 
     get height() {
         let height = 0
-
         let currentLevel = new LinkedList()
         let nextLevel = new LinkedList(this)
 
         while (nextLevel.size > 0) {
-            height++
             currentLevel = nextLevel
             nextLevel = new LinkedList()
 
             while (currentLevel.size > 0) {
                 const node = currentLevel.shift()
-
-                if (node.hasLeft) {
-                    nextLevel.append(node.left)
-                }
-
-                if (node.hasRight) {
-                    nextLevel.append(node.right)
-                }
+                node.appendChildrenTo(nextLevel)
             }
+
+            height++
         }
 
         return height
+    }
+
+    depth(key) {
+        let depth = 0
+        let currentLevel = new LinkedList()
+        let nextLevel = new LinkedList(this)
+
+        while (nextLevel.size > 0) {
+            currentLevel = nextLevel
+            nextLevel = new LinkedList()
+
+            while(currentLevel.size > 0) {
+                const node = currentLevel.shift()
+                node.appendChildrenTo(nextLevel)
+
+                if (node.data === key) {
+                    return depth
+                }
+            }
+
+            depth++
+        }
+
+        return null
+    }
+
+    appendChildrenTo(list) {
+        if (this.hasLeft) {
+            list.append(this.left)
+        }
+
+        if (this.hasRight) {
+            list.append(this.right)
+        }
     }
 
     find(key, parent = null) {

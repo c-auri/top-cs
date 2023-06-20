@@ -17,6 +17,10 @@ export class Tree {
         return this.#root?.height ?? 0
     }
 
+    depth(key) {
+        return this.#root?.depth(key) ?? null
+    }
+
     find(key) {
         return this.#root?.find(key).target ?? null
     }
