@@ -7,51 +7,45 @@ export function knightMoves(start: Coordinate, goal: Coordinate) {
         return start.toString()
     }
 
-    let finalNode: Node | undefined = undefined
     const queue = new LinkedList(new Node(start))
 
-    while (!finalNode) {
-        const sourceNode = queue.shift() as Node
-        const targetCoordinates = getPossibleTargets(sourceNode.coordinate)
+    while (true) {
+        const previousMove = queue.shift() as Node
+        const possibleMoves = getPossibleMoves(previousMove)
 
-        for (const targetCoordinate of targetCoordinates) {
-            const targetNode = new Node(targetCoordinate, sourceNode)
+        for (const move of possibleMoves) {
+            if (move.coordinate.equals(goal)) {
+                return move.toString()
+            }
 
-            if (targetCoordinate.equals(start)) {
-                break
-            } else if (targetCoordinate.equals(goal)) {
-                finalNode = targetNode
-                break
-            } else {
-                queue.append(targetNode)
+            if (!move.coordinate.equals(start)) {
+                queue.append(move)
             }
         }
     }
-
-    return finalNode.toString()
 }
 
-function getPossibleTargets(source: Coordinate) {
-    const result: Coordinate[] = []
+function getPossibleMoves(source: Node) {
+    const result: Node[] = []
 
-    for (const move of possibleMoves) {
-        const target = source.tryAdd(move[0], move[1])
+    for (const direction of directions) {
+        const target = source.coordinate.tryAdd(direction.columns, direction.rows)
 
         if (target) {
-            result.push(target)
+            result.push(new Node(target, source))
         }
     }
 
     return result
 }
 
-const possibleMoves = [
-    [1, -2],
-    [1, 2],
-    [2, -1],
-    [2, 1],
-    [-1, -2],
-    [-1, 2],
-    [-2, -1],
-    [-2, 1]
+const directions = [
+    { columns: 1, rows: -2 },
+    { columns: 1, rows: 2 },
+    { columns: 2, rows: -1 },
+    { columns: 2, rows: 1 },
+    { columns: -1, rows: -2 },
+    { columns: -1, rows: 2 },
+    { columns: -2, rows: -1 },
+    { columns: -2, rows: 1 }
 ]
