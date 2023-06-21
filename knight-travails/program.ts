@@ -8,6 +8,14 @@ try {
 }
 
 function runProgram() {
+    if (!process.argv[2] || !process.argv[3]) {
+        throw new Error('Missing arguments')
+    }
+
+    if (process.argv[2].length !== 2 || process.argv[3].length !== 2) {
+        throw new Error('Malformed arguments')
+    }
+
     const [ startColumn, startRow ] = process.argv[2].split('')
     const [ goalColumn, goalRow ] = process.argv[3].split('')
 
