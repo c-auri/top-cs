@@ -1,4 +1,4 @@
-export function sort(array) {
+export function sort(array: number[]): number[] {
     if (array.length <= 1)
         return array
 
@@ -7,7 +7,7 @@ export function sort(array) {
     return merge(sort(left), sort(right))
 }
 
-function split(array) {
+function split(array: number[]) {
     const middleIndex = Math.round(array.length / 2)
 
     return {
@@ -16,7 +16,7 @@ function split(array) {
     }
 }
 
-function merge(left, right) {
+function merge(left: number[], right: number[]) {
     let result = []
     let i = 0
     let j = 0

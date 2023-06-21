@@ -1,5 +1,8 @@
 export class Node {
-    constructor(value = null, nextNode = null) {
+    value
+    nextNode
+
+    constructor(value: any | null = null, nextNode: Node | null = null) {
         this.value = value
         this.nextNode = nextNode
     }

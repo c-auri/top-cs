@@ -1,9 +1,9 @@
 import { Node } from './Node'
 
 export class LinkedList {
-    #head
+    #head: Node | null
 
-    constructor(...values) {
+    constructor(...values: any[]) {
         this.#head = null
 
         for (const value of values) {
@@ -41,22 +41,22 @@ export class LinkedList {
         return size
     }
 
-    append(value) {
+    append(value: any) {
         const newNode = new Node(value)
 
         if (this.#head === null) {
             this.#head = newNode
         } else {
-            this.tail.nextNode = newNode
+            this.tail!.nextNode = newNode
         }
     }
 
-    prepend(value) {
+    prepend(value: any) {
         const newHead = new Node(value, this.#head)
         this.#head = newHead
     }
 
-    concat(other) {
+    concat(other: LinkedList) {
         if (other.size === 0) {
             return
         }
@@ -64,11 +64,11 @@ export class LinkedList {
         if (this.size === 0) {
             this.#head = other.head
         } else {
-            this.tail.nextNode = other.head
+            this.tail!.nextNode = other.head
         }
     }
 
-    insertAt(value, index) {
+    insertAt(value: any, index: number) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')
         }
@@ -85,13 +85,13 @@ export class LinkedList {
 
         const nodeToInsert = new Node(value)
         const nodeBefore = this.at(index - 1)
-        const nodeAfter = nodeBefore.nextNode
+        const nodeAfter = nodeBefore!.nextNode
 
-        nodeBefore.nextNode = nodeToInsert
+        nodeBefore!.nextNode = nodeToInsert
         nodeToInsert.nextNode = nodeAfter
     }
 
-    at(index) {
+    at(index: number) {
         if (index < 0) {
             throw new Error('index must be non-negative')
         }
@@ -123,7 +123,7 @@ export class LinkedList {
         }
 
         let previous = this.#head
-        let current = previous.nextNode
+        let current = previous.nextNode!
 
         while (current.nextNode !== null) {
             previous = current
@@ -135,13 +135,13 @@ export class LinkedList {
         return result
     }
 
-    removeAt(index) {
+    removeAt(index: number) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')
         }
 
         if (index === 0) {
-            this.#head = this.#head.nextNode
+            this.#head = this.#head!.nextNode
             return
         }
 
@@ -150,7 +150,7 @@ export class LinkedList {
             return
         }
 
-        this.at(index - 1).nextNode = this.at(index + 1)
+        this.at(index - 1)!.nextNode = this.at(index + 1)
     }
 
     shift() {
@@ -163,7 +163,7 @@ export class LinkedList {
         return head.value
     }
 
-    contains(value) {
+    contains(value: any) {
         let current = this.#head
 
         while (current !== null) {
@@ -177,7 +177,7 @@ export class LinkedList {
         return false
     }
 
-    find(value) {
+    find(value: any) {
         let currentNode = this.#head
         let currentPosition = 0
 

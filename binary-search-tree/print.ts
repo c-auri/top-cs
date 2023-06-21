@@ -1,5 +1,5 @@
-import { Node } from './Node.js'
-import { Tree } from './Tree.js'
+import { Node } from './Node.ts'
+import { Tree } from './Tree.ts'
 
 const values = Array.from({length: 7}, (_, i) => i + 1)
 const tree = new Tree(...values)

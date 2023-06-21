@@ -1,11 +1,10 @@
-import { Node } from "./Node"
-import { LinkedList } from "../linked-list/LinkedList"
-import { sort } from "../mergesort/sort.js"
+import { Node } from "./Node.ts"
+import { sort } from "../mergesort/sort.ts"
 
 export class Tree {
-    #root
+    #root: any
 
-    constructor(...values) {
+    constructor(...values: any[]) {
         this.#root = buildTree(sort(values), 0, values.length - 1)
     }
 
@@ -21,19 +20,19 @@ export class Tree {
         return this.#root?.isBalanced ?? true
     }
 
-    depth(key) {
+    depth(key: any) {
         return this.#root?.depth(key) ?? null
     }
 
-    find(key) {
+    find(key: any) {
         return this.#root?.find(key).target ?? null
     }
 
-    insert(key) {
+    insert(key: any) {
         return this.#root.insert(key)
     }
 
-    delete(key) {
+    delete(key: any) {
         const { target, parent } = this.#root.find(key)
 
         if (target && parent) {
@@ -48,7 +47,7 @@ export class Tree {
         this.#root = buildTree(values, 0, values.length - 1)
     }
 
-    levelOrder(callback = (node) => node.data) {
+    levelOrder(callback = (node: Node) => node.data) {
         if (this.#root === null) {
             return []
         }
@@ -56,7 +55,7 @@ export class Tree {
         return this.#root.levelOrder().toArray().map(callback)
     }
 
-    inorder(callback = (node) => node.data) {
+    inorder(callback = (node: Node) => node.data) {
         if (this.#root === null) {
             return []
         }
@@ -64,7 +63,7 @@ export class Tree {
         return this.#root.inorder().toArray().map(callback)
     }
 
-    preorder(callback = (node) => node.data) {
+    preorder(callback = (node: Node) => node.data) {
         if (this.#root === null) {
             return []
         }
@@ -72,7 +71,7 @@ export class Tree {
         return this.#root.preorder().toArray().map(callback)
     }
 
-    postorder(callback = (node) => node.data) {
+    postorder(callback = (node: Node) => node.data) {
         if (this.#root === null) {
             return []
         }
@@ -81,12 +80,12 @@ export class Tree {
     }
 }
 
-function buildTree(array, start, end) {
+function buildTree(array: any[], start: number, end: number): Node | null {
     if (start > end) {
         return null
     }
 
-    const middle = parseInt((start + end) / 2)
+    const middle = Math.floor((start + end) / 2)
 
     return new Node(
         array[middle],

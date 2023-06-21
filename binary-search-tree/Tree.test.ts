@@ -1,4 +1,5 @@
-import { Tree } from "./Tree"
+import { Node } from "./Node.ts"
+import { Tree } from "./Tree.ts"
 
 describe('height', () => {
     describe('returns 0 for empty tree', () => {
@@ -235,9 +236,9 @@ describe('delete', () => {
             const tree = new Tree(...inorderValues)
             tree.delete(4)
 
-            for (const value in inorderValues) {
+            for (const value of inorderValues) {
                 if (value !== 4) {
-                    expect(tree.find(value)).toBeFalsy()
+                    expect(tree.find(value)).toBeTruthy()
                 }
             }
         })
@@ -246,9 +247,9 @@ describe('delete', () => {
             const tree = new Tree(...inorderValues)
             tree.delete(2)
 
-            for (const value in inorderValues) {
+            for (const value of inorderValues) {
                 if (value !== 2) {
-                    expect(tree.find(value)).toBeFalsy()
+                    expect(tree.find(value)).toBeTruthy()
                 }
             }
         })
@@ -261,9 +262,9 @@ describe('delete', () => {
             tree.insert(11)
             tree.delete(8)
 
-            for (const value in inorderValues) {
+            for (const value of inorderValues) {
                 if (value !== 8) {
-                    expect(tree.find(value)).toBeFalsy()
+                    expect(tree.find(value)).toBeTruthy()
                 }
             }
         })
@@ -282,14 +283,13 @@ describe('levelOrder', () => {
         })
     })
     describe('with callback', () => {
-        const callback = (node) => node.data * 2
         test('returns an empty array for the empty tree', () => {
             const tree = new Tree()
-            expect(tree.levelOrder(callback)).toEqual([])
+            expect(tree.levelOrder(doubleValue)).toEqual([])
         })
         test('returns breadth-first sorted array with callback values', () => {
             const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
-            expect(tree.levelOrder(callback)).toEqual([8, 4, 12, 2, 6, 10, 14])
+            expect(tree.levelOrder(doubleValue)).toEqual([8, 4, 12, 2, 6, 10, 14])
         })
     })
 })
@@ -310,18 +310,17 @@ describe('inorder', () => {
         })
     })
     describe('with callback', () => {
-        const callback = (node) => node.data * 2
         test('returns an empty array for the empty tree', () => {
             const tree = new Tree()
-            expect(tree.inorder(callback)).toEqual([])
+            expect(tree.inorder(doubleValue)).toEqual([])
         })
         test('returns an array containing the callback value of root for a tree with height 1', () => {
             const tree = new Tree(1)
-            expect(tree.inorder(callback)).toEqual([2])
+            expect(tree.inorder(doubleValue)).toEqual([2])
         })
         test('returns the inorder array with all callback values for a tree with multiple values', () => {
             const tree = new Tree(5, 3, 2, 4, 1, 7, 6)
-            expect(tree.inorder(callback)).toEqual([2, 4, 6, 8, 10, 12, 14])
+            expect(tree.inorder(doubleValue)).toEqual([2, 4, 6, 8, 10, 12, 14])
         })
     })
 })
@@ -342,18 +341,17 @@ describe('preorder', () => {
         })
     })
     describe('with callback', () => {
-        const callback = (node) => node.data * 2
         test('returns an empty array for the empty tree', () => {
             const tree = new Tree()
-            expect(tree.preorder(callback)).toEqual([])
+            expect(tree.preorder(doubleValue)).toEqual([])
         })
         test('returns an array containing the callback value of root for a tree with height 1', () => {
             const tree = new Tree(1)
-            expect(tree.preorder(callback)).toEqual([2])
+            expect(tree.preorder(doubleValue)).toEqual([2])
         })
         test('returns the preorder array with all callback values for a tree with multiple values', () => {
             const tree = new Tree(5, 3, 2, 4, 1, 7, 6)
-            expect(tree.preorder(callback)).toEqual([8, 4, 2, 6, 12, 10, 14])
+            expect(tree.preorder(doubleValue)).toEqual([8, 4, 2, 6, 12, 10, 14])
         })
     })
 })
@@ -374,18 +372,21 @@ describe('postorder', () => {
         })
     })
     describe('with callback', () => {
-        const callback = (node) => node.data * 2
         test('returns an empty array for the empty tree', () => {
             const tree = new Tree()
-            expect(tree.postorder(callback)).toEqual([])
+            expect(tree.postorder(doubleValue)).toEqual([])
         })
         test('returns an array containing the callback value of root for a tree with height 1', () => {
             const tree = new Tree(1)
-            expect(tree.postorder(callback)).toEqual([2])
+            expect(tree.postorder(doubleValue)).toEqual([2])
         })
         test('returns the postorder array with all callback values for a tree with multiple values', () => {
             const tree = new Tree(5, 3, 2, 4, 1, 7, 6)
-            expect(tree.postorder(callback)).toEqual([2, 6, 4, 10, 14, 12, 8])
+            expect(tree.postorder(doubleValue)).toEqual([2, 6, 4, 10, 14, 12, 8])
         })
     })
 })
+
+function doubleValue(node: Node) {
+    return node.data as number * 2
+}

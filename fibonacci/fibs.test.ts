@@ -1,4 +1,4 @@
-import { iterativeFibs, recursiveFibs } from './fibs'
+import { iterativeFibs, recursiveFibs } from './fibs.ts'
 
 describe('iterativeFibs returns', () => {
     describe('the empty array', () => {

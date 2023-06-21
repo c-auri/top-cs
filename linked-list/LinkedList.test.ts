@@ -1,4 +1,4 @@
-import { LinkedList } from "./LinkedList";
+import { LinkedList } from "./LinkedList.ts";
 
 describe('A new list constructed', () => {
     describe('without provided values', () => {
@@ -19,9 +19,9 @@ describe('A new list constructed', () => {
         })
         test('contains these values in the correct order', () => {
             const list = new LinkedList('head', 'middle', 'tail')
-            expect(list.at(0).value).toBe('head')
-            expect(list.at(1).value).toBe('middle')
-            expect(list.at(2).value).toBe('tail')
+            expect(list.at(0)!.value).toBe('head')
+            expect(list.at(1)!.value).toBe('middle')
+            expect(list.at(2)!.value).toBe('tail')
         })
     })
 })
@@ -34,7 +34,7 @@ describe('Appending a value', () => {
             list.append('head')
             list.append('tail')
             list.append(value)
-            expect(list.tail.value).toBe(value)
+            expect(list.tail!.value).toBe(value)
         })
         test('increments the size', () => {
             const list = new LinkedList()
@@ -50,13 +50,13 @@ describe('Appending a value', () => {
             const value = 'a new node'
             const list = new LinkedList()
             list.append(value)
-            expect(list.head.value).toBe(value)
+            expect(list.head!.value).toBe(value)
         })
         test('adds that value to the tail', () => {
             const value = 'a new node'
             const list = new LinkedList()
             list.append(value)
-            expect(list.tail.value).toBe(value)
+            expect(list.tail!.value).toBe(value)
         })
         test('results in size 1', () => {
             const list = new LinkedList()
@@ -72,13 +72,13 @@ describe('Prepending a value', () => {
             const value = 'new head'
             const list = new LinkedList('head', 'tail')
             list.prepend(value)
-            expect(list.head.value).toBe(value)
+            expect(list.head!.value).toBe(value)
         })
         test('sets the old head as the next node of the new head', () => {
             const oldHead = 'old head'
             const list = new LinkedList(oldHead, 'tail')
             list.prepend('new head')
-            expect(list.head.nextNode.value).toBe(oldHead)
+            expect(list.head!.nextNode!.value).toBe(oldHead)
         })
         test('increments the size', () => {
             const list = new LinkedList('head', 'tail')
@@ -92,13 +92,13 @@ describe('Prepending a value', () => {
             const value = 'a new node'
             const list = new LinkedList()
             list.prepend(value)
-            expect(list.head.value).toBe(value)
+            expect(list.head!.value).toBe(value)
         })
         test('sets that value to the tail', () => {
             const value = 'a new node'
             const list = new LinkedList()
             list.prepend(value)
-            expect(list.tail.value).toBe(value)
+            expect(list.tail!.value).toBe(value)
         })
         test('results in size 1', () => {
             const list = new LinkedList()
@@ -113,12 +113,12 @@ describe('Inserting at', () => {
         test('sets given value to head', () => {
             const list = new LinkedList('head', 'tail')
             list.insertAt('new head', 0)
-            expect(list.head.value).toBe('new head')
+            expect(list.head!.value).toBe('new head')
         })
         test('moves previous head to the successor of the prepended node', () => {
             const list = new LinkedList('head', 'tail')
             list.insertAt('new head', 0)
-            expect(list.head.nextNode.value).toBe('head')
+            expect(list.head!.nextNode!.value).toBe('head')
         })
         test('increments size', () => {
             const list = new LinkedList('head', 'tail')
@@ -131,7 +131,7 @@ describe('Inserting at', () => {
         test('sets given value to tail', () => {
             const list = new LinkedList('head', 'tail')
             list.insertAt('new tail', 1)
-            expect(list.tail.value).toBe('new tail')
+            expect(list.tail!.value).toBe('new tail')
         })
         test('increments size', () => {
             const list = new LinkedList('head', 'tail')
@@ -144,12 +144,12 @@ describe('Inserting at', () => {
         test('sets value to given index', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.insertAt('insertion', 1)
-            expect(list.at(1).value).toBe('insertion')
+            expect(list.at(1)!.value).toBe('insertion')
         })
         test('appends previous node at that position to the inserted node', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.insertAt('insertion', 1)
-            expect(list.at(2).value).toBe('middle')
+            expect(list.at(2)!.value).toBe('middle')
         })
         test('increments size', () => {
             const list = new LinkedList('head', 'middle', 'tail')
@@ -216,15 +216,15 @@ describe('Accessing a node at', () => {
     })
     test('index 0 returns the head', () => {
         const list = new LinkedList('head', 'tail')
-        expect(list.at(0).value).toBe('head')
+        expect(list.at(0)!.value).toBe('head')
     })
     test('a middle index returns the node at that position', () => {
         const list = new LinkedList('head', 'middle', 'tail')
-        expect(list.at(1).value).toBe('middle')
+        expect(list.at(1)!.value).toBe('middle')
     })
     test('the last index returns the tail', () => {
         const list = new LinkedList('head', 'middle', 'tail')
-        expect(list.at(2).value).toBe('tail')
+        expect(list.at(2)!.value).toBe('tail')
     })
     test('an index larger than the size of the list returns null', () => {
         const list = new LinkedList('head', 'tail')
@@ -241,7 +241,7 @@ describe('Pop', () => {
         test('removes the tail', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.pop()
-            expect(list.tail.value).toBe('middle')
+            expect(list.tail!.value).toBe('middle')
         })
     })
     describe('from an empty list', () => {
@@ -260,7 +260,7 @@ describe('Shift', () => {
         test('removes the head', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.shift()
-            expect(list.head.value).toBe('middle')
+            expect(list.head!.value).toBe('middle')
         })
     })
     describe('from an empty list', () => {
@@ -298,7 +298,7 @@ describe('Removing', () => {
         test('sets successor of previous head as new head', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(0)
-            expect(list.head.value).toBe('middle')
+            expect(list.head!.value).toBe('middle')
         })
     })
     describe('at a middle index', () => {
@@ -316,7 +316,7 @@ describe('Removing', () => {
         test('puts successor of removed node at given index', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(1)
-            expect(list.at(1).value).toBe('tail')
+            expect(list.at(1)!.value).toBe('tail')
         })
     })
     describe('at last index', () => {
@@ -328,12 +328,12 @@ describe('Removing', () => {
         test('decrements size', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(list.size - 1)
-            expect(list.tail.value).toBe('middle')
+            expect(list.tail!.value).toBe('middle')
         })
         test('sets predecessor of previous tail as new tail', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(2)
-            expect(list.tail.value).toBe('middle')
+            expect(list.tail!.value).toBe('middle')
         })
     })
 })
