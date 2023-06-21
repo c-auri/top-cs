@@ -27,13 +27,9 @@ function runProgram() {
 }
 
 function handle(error: any) {
-    let message: string
-
     if (error instanceof Error) {
-        message = error.message
+        console.log(error.message)
     } else {
-        message = String(error)
+        console.log(String(error))
     }
-
-    console.log(message)
 }
