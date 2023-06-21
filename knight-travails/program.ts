@@ -1,26 +1,31 @@
-import { Coordinate, Column, Row } from "./Coordinate"
+import { Coordinate } from "./Coordinate"
 import { knightMoves } from "./knightMoves"
 
-const startCoordinates = process.argv[2]
-const goalCoordinates = process.argv[3]
-
-const startColumn = startCoordinates.split('')[0]
-const startRow = parseInt(startCoordinates.split('')[1])
-const goalColumn = goalCoordinates.split('')[0]
-const goalRow = parseInt(goalCoordinates.split('')[1])
-
-if (!isValidInput(startColumn, startRow) || !isValidInput(goalColumn, goalRow)) {
-    console.log('Invalid input')
-} else {
-    const start =  new Coordinate(startColumn as Column, startRow as Row)
-    const goal =  new Coordinate(goalColumn as Column, goalRow as Row)
-
-    console.log(`Shortest path from ${start} to ${goal}:`)
-    console.log(knightMoves(start, goal).toString())
+try {
+    runProgram()
+} catch (error) {
+    handle(error)
 }
 
+function runProgram() {
+    const [ startColumn, startRow ] = process.argv[2].split('')
+    const [ goalColumn, goalRow ] = process.argv[3].split('')
 
-function isValidInput(column: string, row: number) {
-    return column.length === 1
-        && Coordinate.isValid(column.charCodeAt(0), row)
+    const start =  new Coordinate(startColumn, startRow)
+    const goal =  new Coordinate(goalColumn, goalRow)
+
+    console.log(`Shortest path from ${start} to ${goal}:`)
+    console.log(knightMoves(start, goal))
+}
+
+function handle(error: any) {
+    let message: string
+
+    if (error instanceof Error) {
+        message = error.message
+    } else {
+        message = String(error)
+    }
+
+    console.log(message)
 }

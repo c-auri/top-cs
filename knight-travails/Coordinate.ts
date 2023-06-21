@@ -1,29 +1,40 @@
-export type Column = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
-export type Row = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-
 export class Coordinate {
-    column: Column
-    row: Row
+    column: string
+    row: string
 
-    static isValid(columnCode: number, row: number) {
-        return columnCode >= 65
-            && columnCode <= 72
-            && row >= 1
-            && row <= 8
+    static isValid(column: string, row: string) {
+        return column.length === 1
+            && row.length === 1
+            && column.charCodeAt(0) >= 65
+            && column.charCodeAt(0) <= 72
+            && row.charCodeAt(0) >= 49
+            && row.charCodeAt(0) <= 56
     }
 
-    constructor(column: Column, row: Row) {
+    constructor(column: string, row: string) {
+        if (!Coordinate.isValid(column, row)) {
+            throw Error('Invalid coordinate')
+        }
+
         this.column = column
         this.row = row
     }
 
-    tryAdd(numberOfColumns: number, numberOfRows: number) {
-        const columnCode = this.column.charCodeAt(0) + numberOfColumns
-        const row = this.row + numberOfRows
+    get columnCode() {
+        return this.column.charCodeAt(0)
+    }
 
-        if (Coordinate.isValid(columnCode, row)) {
-            return new Coordinate(String.fromCharCode(columnCode) as Column, row as Row)
-        } else {
+    get rowCode() {
+        return this.row.charCodeAt(0)
+    }
+
+    tryAdd(numberOfColumns: number, numberOfRows: number) {
+        const newColumn = String.fromCharCode(this.columnCode + numberOfColumns)
+        const newRow = String.fromCharCode(this.rowCode + numberOfRows)
+
+        try {
+            return new Coordinate(newColumn, newRow)
+        } catch {
             return null
         }
     }
