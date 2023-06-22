@@ -2,8 +2,8 @@
   "name": "dsa",
   "scripts": {
     "test": "jest",
-    "tree": "npx ts-node binary-search-tree/print.ts",
-    "knight-travails": "npx ts-node knight-travails/program.ts"
+    "tree": "npx ts-node binary-search-tree/program.ts",
+    "knight": "npx ts-node knight-travails/program.ts"
   },
   "author": "c-auri",
   "devDependencies": {
