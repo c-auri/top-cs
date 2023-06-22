@@ -4,8 +4,21 @@ import { sort } from "../mergesort/sort.ts"
 export class Tree {
     #root: any
 
+    static #build(array: any[], start: number, end: number): Node | null {
+        if (start > end) {
+            return null
+        }
+
+        const middle = Math.floor((start + end) / 2)
+
+        return new Node(
+            array[middle],
+            Tree.#build(array, start, middle - 1),
+            Tree.#build(array, middle + 1, end))
+    }
+
     constructor(...values: any[]) {
-        this.#root = buildTree(sort(values), 0, values.length - 1)
+        this.#root = Tree.#build(sort(values), 0, values.length - 1)
     }
 
     get root() {
@@ -44,7 +57,7 @@ export class Tree {
 
     rebalance() {
         const values = this.inorder()
-        this.#root = buildTree(values, 0, values.length - 1)
+        this.#root = Tree.#build(values, 0, values.length - 1)
     }
 
     levelOrder(callback = (node: Node) => node.data) {
@@ -78,17 +91,4 @@ export class Tree {
 
         return this.#root.postorder().toArray().map(callback)
     }
-}
-
-function buildTree(array: any[], start: number, end: number): Node | null {
-    if (start > end) {
-        return null
-    }
-
-    const middle = Math.floor((start + end) / 2)
-
-    return new Node(
-        array[middle],
-        buildTree(array, start, middle - 1),
-        buildTree(array, middle + 1, end))
 }
