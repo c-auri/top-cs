@@ -9,19 +9,19 @@ describe('Constructor', () => {
 })
 
 describe('height', () => {
-    describe('returns 0 for empty tree', () => {
+    test('returns 0 for empty tree', () => {
         const tree = new Tree()
         expect(tree.height).toBe(0)
     })
-    describe('returns 1 for a tree with just the root', () => {
+    test('returns 1 for a tree with just the root', () => {
         const tree = new Tree(4)
         expect(tree.height).toBe(1)
     })
-    describe('returns correct height for a tree with two equal sized subtrees', () => {
+    test('returns correct height for a tree with two equal sized subtrees', () => {
         const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
         expect(tree.height).toBe(3)
     })
-    describe('returns correct height for an unbalanced tree', () => {
+    test('returns correct height for an unbalanced tree', () => {
         const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
         tree.delete(6)
         tree.insert(6)
