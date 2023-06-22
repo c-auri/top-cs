@@ -40,10 +40,10 @@ console.log()
 
 console.log('These are the tree values in different orders:')
 console.log()
-console.log(`level-order: ${tree.levelOrder()}`)
-console.log(`in-order: ${tree.inorder()}`)
-console.log(`pre-order: ${tree.preorder()}`)
-console.log(`post-order: ${tree.postorder()}`)
+console.log(`level-order: ${tree.levelOrder().join(', ')}`)
+console.log(`in-order: ${tree.inorder().join(', ')}`)
+console.log(`pre-order: ${tree.preorder().join(', ')}`)
+console.log(`post-order: ${tree.postorder().join(', ')}`)
 
 function print(tree: Tree) {
     printNode(tree.root)
