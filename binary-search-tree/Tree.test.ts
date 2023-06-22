@@ -74,7 +74,7 @@ describe('depth', () => {
             const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
             expect(tree.depth(8)).toBe(null)
         })
-        test('for value that does not exist in tree', () => {
+        test('for empty tree', () => {
             const tree = new Tree()
             expect(tree.depth(1)).toBe(null)
         })
