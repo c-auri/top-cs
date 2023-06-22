@@ -9,15 +9,11 @@ export class Path {
         this.start = start
     }
 
-    toString() {
-        let current = this as Path
-        let result = current.target.toString()
-
-        while (current.start) {
-            result = `${current.start.target.toString()} -> ${result}`
-            current = current.start
+    toString(): string {
+        if (!this.start) {
+            return this.target.toString()
         }
 
-        return result
+        return `${this.start.toString()} -> ${this.target.toString()}`
     }
 }
