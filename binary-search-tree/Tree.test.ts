@@ -14,6 +14,12 @@ describe('height', () => {
         const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
         expect(tree.height).toBe(3)
     })
+    describe('returns correct height for an unbalanced tree', () => {
+        const tree = new Tree(1, 2, 3, 4, 5, 6, 7)
+        tree.delete(6)
+        tree.insert(6)
+        expect(tree.height).toBe(4)
+    })
 })
 
 describe('isBalanced', () => {
