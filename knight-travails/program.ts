@@ -1,5 +1,5 @@
 import { Coordinate } from "./Coordinate"
-import { getShortestPath } from "./ShortestPath"
+import { findShortestPaths } from "./ShortestPath"
 
 try {
     runProgram()
@@ -21,10 +21,15 @@ function runProgram() {
 
     const start =  new Coordinate(startColumn, startRow)
     const goal =  new Coordinate(goalColumn, goalRow)
-    const shortestPath = getShortestPath(start, goal)
+    const shortestPaths = findShortestPaths(start, goal)
+    const length = shortestPaths.length
 
-    console.log(`Shortest path from ${start} to ${goal}:`)
-    console.log(shortestPath.toString())
+    console.log(`There ${length > 1 ? "are" : "is"} ${length} shortest path${length > 1 ? "s" : ""} from ${start} to ${goal}:`)
+
+    for (let i = 0; i < length; i++) {
+        const number = String(i + 1).padStart(String(length).length)
+        console.log(`${number}: ${shortestPaths[i].toString()}`)
+    }
 }
 
 function handle(error: any) {
