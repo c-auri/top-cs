@@ -4,7 +4,7 @@ import { LinkedList } from '../linked-list/LinkedList'
 
 export function knightMoves(start: Coordinate, goal: Coordinate) {
     if (start.equals(goal)) {
-        return start.toString()
+        return new Node(start)
     }
 
     const queue = new LinkedList(new Node(start))
@@ -14,7 +14,7 @@ export function knightMoves(start: Coordinate, goal: Coordinate) {
 
         for (const move of getPossibleMoves(previousMove)) {
             if (move.coordinate.equals(goal)) {
-                return move.toString()
+                return move
             }
 
             queue.append(move)

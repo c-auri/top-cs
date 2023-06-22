@@ -21,9 +21,10 @@ function runProgram() {
 
     const start =  new Coordinate(startColumn, startRow)
     const goal =  new Coordinate(goalColumn, goalRow)
+    const shortestPath = knightMoves(start, goal)
 
     console.log(`Shortest path from ${start} to ${goal}:`)
-    console.log(knightMoves(start, goal))
+    console.log(shortestPath.toString())
 }
 
 function handle(error: any) {
