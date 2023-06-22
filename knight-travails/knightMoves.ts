@@ -11,16 +11,13 @@ export function knightMoves(start: Coordinate, goal: Coordinate) {
 
     while (true) {
         const previousMove = queue.shift() as Node
-        const possibleMoves = getPossibleMoves(previousMove)
 
-        for (const move of possibleMoves) {
+        for (const move of getPossibleMoves(previousMove)) {
             if (move.coordinate.equals(goal)) {
                 return move.toString()
             }
 
-            if (!move.coordinate.equals(start)) {
-                queue.append(move)
-            }
+            queue.append(move)
         }
     }
 }
