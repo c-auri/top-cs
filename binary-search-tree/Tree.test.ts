@@ -1,6 +1,13 @@
 import { Node } from "./Node.ts"
 import { Tree } from "./Tree.ts"
 
+describe('Constructor', () => {
+    test('removes duplicates', () => {
+        const tree = new Tree(1, 2, 2, 3)
+        expect(tree.inorder()).toEqual([1, 2, 3])
+    })
+})
+
 describe('height', () => {
     describe('returns 0 for empty tree', () => {
         const tree = new Tree()

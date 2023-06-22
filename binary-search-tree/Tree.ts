@@ -17,8 +17,13 @@ export class Tree {
             Tree.#build(array, middle + 1, end))
     }
 
+    static preprocess(values: any[]) {
+        return sort(Array.from(new Set(values)))
+    }
+
     constructor(...values: any[]) {
-        this.#root = Tree.#build(sort(values), 0, values.length - 1)
+        values = Tree.preprocess(values)
+        this.#root = Tree.#build(values, 0, values.length - 1)
     }
 
     get root() {
