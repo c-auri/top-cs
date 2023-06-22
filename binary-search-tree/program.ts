@@ -1,32 +1,20 @@
 import { Node } from './Node.ts'
 import { Tree } from './Tree.ts'
+import { recursiveFibs } from '../fibonacci/fibs.ts'
 
-const values: number[] = []
+const fibs = recursiveFibs(23)
+const tree = new Tree(...fibs.slice(3, 13))
 
-for (let i = 0; i < 10; i++) {
-    let value = getRandomIntInclusive(10, 99)
-    while (values.includes(value)) {
-        value = getRandomIntInclusive(10, 99)
-    }
-    values.push(value)
-}
-
-const tree = new Tree(...values)
-console.log(`Here's a${tree.isBalanced ? " balanced" : "n unbalanced"} tree of some random two-digit numbers:`)
+console.log(`Here's a${tree.isBalanced ? " balanced" : "n unbalanced"} tree containing some fibonacci numbers:`)
 console.log()
-
 print(tree)
 console.log()
 
-console.log("Now, let's add some tree-digit numbers: ")
+console.log("Now, let's add some more: ")
 console.log()
 
-for (let i = 0; i < 5; i++) {
-    let value = getRandomIntInclusive(100, 999)
-    while (tree.find(value)) {
-        value = getRandomIntInclusive(100, 999)
-    }
-    tree.insert(value)
+for (let i = 13; i < 18; i++) {
+    tree.insert(fibs[i])
 }
 
 print(tree)
@@ -44,6 +32,7 @@ console.log(`level-order: ${tree.levelOrder().join(', ')}`)
 console.log(`in-order: ${tree.inorder().join(', ')}`)
 console.log(`pre-order: ${tree.preorder().join(', ')}`)
 console.log(`post-order: ${tree.postorder().join(', ')}`)
+console.log()
 
 function print(tree: Tree) {
     printNode(tree.root)
