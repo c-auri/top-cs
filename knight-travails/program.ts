@@ -1,5 +1,5 @@
 import { Coordinate } from "./Coordinate"
-import { knightMoves } from "./knightMoves"
+import { getShortestPath } from "./ShortestPath"
 
 try {
     runProgram()
@@ -21,7 +21,7 @@ function runProgram() {
 
     const start =  new Coordinate(startColumn, startRow)
     const goal =  new Coordinate(goalColumn, goalRow)
-    const shortestPath = knightMoves(start, goal)
+    const shortestPath = getShortestPath(start, goal)
 
     console.log(`Shortest path from ${start} to ${goal}:`)
     console.log(shortestPath.toString())
