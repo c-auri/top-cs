@@ -3,7 +3,7 @@ import { Tree } from './Tree.ts'
 
 const values: number[] = []
 
-for (let i = 0; i < getRandomIntInclusive(25, 50); i++) {
+for (let i = 0; i < 10; i++) {
     let value = getRandomIntInclusive(10, 99)
     while (values.includes(value)) {
         value = getRandomIntInclusive(10, 99)
@@ -21,7 +21,7 @@ console.log()
 console.log("Now, let's add some tree-digit numbers: ")
 console.log()
 
-for (let i = 0; i < getRandomIntInclusive(5, 15); i++) {
+for (let i = 0; i < 5; i++) {
     let value = getRandomIntInclusive(100, 999)
     while (tree.find(value)) {
         value = getRandomIntInclusive(100, 999)
