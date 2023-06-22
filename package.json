@@ -1,5 +1,5 @@
 {
-  "name": "dsa",
+  "name": "cs",
   "scripts": {
     "test": "jest",
     "tree": "npx ts-node binary-search-tree/program.ts",
