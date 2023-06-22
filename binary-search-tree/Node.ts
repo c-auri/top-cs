@@ -109,7 +109,7 @@ export class Node {
     delete() {
         const successor = this.#findInorderSuccessor()
 
-        if (successor === null) {
+        if (!successor) {
             return
         }
 
@@ -145,7 +145,7 @@ export class Node {
         result.append(this)
         let current = result.at(0)
 
-        while (current !== null) {
+        while (current) {
             if (current.value.hasLeft) {
                 result.append(current.value.left)
             }

@@ -13,17 +13,17 @@ function print(tree: Tree) {
 }
 
 function printNode(node: Node, prefix = "", isLeft = true) {
-    if (node === null) {
+    if (!node) {
         return
     }
 
-    if (node.right !== null) {
+    if (node.right) {
         printNode(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false)
     }
 
     console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`)
 
-    if (node.left !== null) {
+    if (node.left) {
         printNode(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true)
     }
 }

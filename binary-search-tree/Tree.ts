@@ -48,7 +48,7 @@ export class Tree {
     }
 
     levelOrder(callback = (node: Node) => node.data) {
-        if (this.#root === null) {
+        if (!this.#root) {
             return []
         }
 
@@ -56,7 +56,7 @@ export class Tree {
     }
 
     inorder(callback = (node: Node) => node.data) {
-        if (this.#root === null) {
+        if (!this.#root) {
             return []
         }
 
@@ -64,7 +64,7 @@ export class Tree {
     }
 
     preorder(callback = (node: Node) => node.data) {
-        if (this.#root === null) {
+        if (!this.#root) {
             return []
         }
 
@@ -72,7 +72,7 @@ export class Tree {
     }
 
     postorder(callback = (node: Node) => node.data) {
-        if (this.#root === null) {
+        if (!this.#root) {
             return []
         }
 
