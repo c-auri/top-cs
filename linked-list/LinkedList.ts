@@ -41,31 +41,54 @@ export class LinkedList {
         return size
     }
 
-    append(value: any) {
-        const newNode = new Node(value)
+    contains(value: any) {
+        let current = this.#head
 
-        if (this.#head === null) {
-            this.#head = newNode
-        } else {
-            this.tail!.nextNode = newNode
+        while (current !== null) {
+            if (current.value === value) {
+                return true
+            }
+
+            current = current.nextNode
         }
+
+        return false
     }
 
-    prepend(value: any) {
-        const newHead = new Node(value, this.#head)
-        this.#head = newHead
+    find(value: any) {
+        let currentNode = this.#head
+        let currentPosition = 0
+
+        while (currentNode !== null) {
+            if (currentNode.value === value) {
+                return currentPosition
+            }
+
+            currentNode = currentNode.nextNode
+            currentPosition++
+        }
+
+        return null
     }
 
-    concat(other: LinkedList) {
-        if (other.size === 0) {
-            return
+    at(index: number) {
+        if (index < 0) {
+            throw new Error('index must be non-negative')
         }
 
-        if (this.size === 0) {
-            this.#head = other.head
-        } else {
-            this.tail!.nextNode = other.head
+        if (index === 0) {
+            return this.#head
         }
+
+        let currentNode = this.#head
+        let currentPosition = 0
+
+        while (index !== currentPosition && currentNode !== null) {
+            currentNode = currentNode.nextNode
+            currentPosition++
+        }
+
+        return currentNode
     }
 
     insertAt(value: any, index: number) {
@@ -91,48 +114,31 @@ export class LinkedList {
         nodeToInsert.nextNode = nodeAfter
     }
 
-    at(index: number) {
-        if (index < 0) {
-            throw new Error('index must be non-negative')
+    append(value: any) {
+        const newNode = new Node(value)
+
+        if (this.#head === null) {
+            this.#head = newNode
+        } else {
+            this.tail!.nextNode = newNode
         }
-
-        if (index === 0) {
-            return this.#head
-        }
-
-        let currentNode = this.#head
-        let currentPosition = 0
-
-        while (index !== currentPosition && currentNode !== null) {
-            currentNode = currentNode.nextNode
-            currentPosition++
-        }
-
-        return currentNode
     }
 
-    pop() {
-        if (this.#head === null) {
-            throw new Error('List is empty')
+    prepend(value: any) {
+        const newHead = new Node(value, this.#head)
+        this.#head = newHead
+    }
+
+    concat(other: LinkedList) {
+        if (other.size === 0) {
+            return
         }
 
-        if (this.#head.nextNode === null) {
-            const result = this.#head
-            this.#head = null
-            return result
+        if (this.size === 0) {
+            this.#head = other.head
+        } else {
+            this.tail!.nextNode = other.head
         }
-
-        let previous = this.#head
-        let current = previous.nextNode!
-
-        while (current.nextNode !== null) {
-            previous = current
-            current = current.nextNode
-        }
-
-        const result = current
-        previous.nextNode = null
-        return result
     }
 
     removeAt(index: number) {
@@ -163,34 +169,28 @@ export class LinkedList {
         return head.value
     }
 
-    contains(value: any) {
-        let current = this.#head
+    pop() {
+        if (this.#head === null) {
+            throw new Error('List is empty')
+        }
 
-        while (current !== null) {
-            if (current.value === value) {
-                return true
-            }
+        if (this.#head.nextNode === null) {
+            const result = this.#head
+            this.#head = null
+            return result
+        }
 
+        let previous = this.#head
+        let current = previous.nextNode!
+
+        while (current.nextNode !== null) {
+            previous = current
             current = current.nextNode
         }
 
-        return false
-    }
-
-    find(value: any) {
-        let currentNode = this.#head
-        let currentPosition = 0
-
-        while (currentNode !== null) {
-            if (currentNode.value === value) {
-                return currentPosition
-            }
-
-            currentNode = currentNode.nextNode
-            currentPosition++
-        }
-
-        return null
+        const result = current
+        previous.nextNode = null
+        return result
     }
 
     toString() {
