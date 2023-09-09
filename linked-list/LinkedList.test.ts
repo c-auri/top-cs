@@ -113,19 +113,6 @@ describe('Inserting at', () => {
             expect(list.size).toBe(previousSize + 1)
         })
     })
-    describe('last index', () => {
-        test('sets given value to tail', () => {
-            const list = new LinkedList('head', 'tail')
-            list.insertAt('new tail', 1)
-            expect(list.tail).toBe('new tail')
-        })
-        test('increments size', () => {
-            const list = new LinkedList('head', 'tail')
-            const previousSize = list.size
-            list.insertAt('new tail', 1)
-            expect(list.size).toBe(previousSize + 1)
-        })
-    })
     describe('a middle index', () => {
         test('sets value to given index', () => {
             const list = new LinkedList('head', 'middle', 'tail')
@@ -141,6 +128,37 @@ describe('Inserting at', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             const previousSize = list.size
             list.insertAt('insertion', 1)
+            expect(list.size).toBe(previousSize + 1)
+        })
+    })
+    describe('second to last index', () => {
+        test('sets value to given index', () => {
+            const list = new LinkedList('head', 'middle', 'tail')
+            list.insertAt('insertion', 2)
+            expect(list.at(2)).toBe('insertion')
+        })
+        test('appends previous node at that position to the inserted node', () => {
+            const list = new LinkedList('head', 'middle', 'tail')
+            list.insertAt('insertion', 2)
+            expect(list.at(3)).toBe('tail')
+        })
+        test('increments size', () => {
+            const list = new LinkedList('head', 'middle', 'tail')
+            const previousSize = list.size
+            list.insertAt('insertion', 2)
+            expect(list.size).toBe(previousSize + 1)
+        })
+    })
+    describe('last index', () => {
+        test('sets given value to tail', () => {
+            const list = new LinkedList('head', 'tail')
+            list.insertAt('new tail', 2)
+            expect(list.tail).toBe('new tail')
+        })
+        test('increments size', () => {
+            const list = new LinkedList('head', 'tail')
+            const previousSize = list.size
+            list.insertAt('new tail', 2)
             expect(list.size).toBe(previousSize + 1)
         })
     })

@@ -101,7 +101,7 @@ export class LinkedList {
      * Adds the given value to the given index position.
      */
     insertAt(value: any, index: number) {
-        if (index < 0 || index >= this.size) {
+        if (index < 0 || index > this.size) {
             throw new Error('index out of bounds')
         }
 
@@ -110,7 +110,7 @@ export class LinkedList {
             return
         }
 
-        if (index === this.size - 1) {
+        if (index === this.size) {
             this.append(value)
             return
         }
