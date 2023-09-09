@@ -145,16 +145,19 @@ export class LinkedList {
     }
 
     /**
-     * Concatenates this list with another list.
+     * Concatenates this list with another list. Does not change inputs.
+     * @returns the concatenation.
      */
     concat(other: LinkedList) {
-        if (other.size === 0) {
-            return
+        const result = new LinkedList(...this.toArray())
+
+        if (other.size > 0) {
+            for (let i = 0; i < other.size; i++) {
+                result.append(other.#nodeAt(i)!.value)
+            }
         }
 
-        for (let i = 0; i < other.size; i++) {
-            this.append(other.#nodeAt(i)!.value)
-        }
+        return result
     }
 
     /**

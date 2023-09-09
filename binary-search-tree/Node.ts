@@ -162,46 +162,46 @@ export class Node {
     }
 
     inorder() {
-        const result = new LinkedList()
+        let result = new LinkedList()
 
         if (this.hasLeft) {
-            result.concat(this.left!.inorder())
+            result = result.concat(this.left!.inorder())
         }
 
         result.append(this)
 
         if (this.hasRight) {
-            result.concat(this.right!.inorder())
+            result = result.concat(this.right!.inorder())
         }
 
         return result
     }
 
     preorder() {
-        const result = new LinkedList()
+        let result = new LinkedList()
 
         result.append(this)
 
         if (this.hasLeft) {
-            result.concat(this.left!.preorder())
+            result = result.concat(this.left!.preorder())
         }
 
         if (this.hasRight) {
-            result.concat(this.right!.preorder())
+            result = result.concat(this.right!.preorder())
         }
 
         return result
     }
 
     postorder() {
-        const result = new LinkedList()
+        let result = new LinkedList()
 
         if (this.hasLeft) {
-            result.concat(this.left!.postorder())
+            result = result.concat(this.left!.postorder())
         }
 
         if (this.hasRight) {
-            result.concat(this.right!.postorder())
+            result = result.concat(this.right!.postorder())
         }
 
         result.append(this)
