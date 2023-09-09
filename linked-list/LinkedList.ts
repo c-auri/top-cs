@@ -12,7 +12,11 @@ export class LinkedList {
     }
 
     get head() {
-        return this.#head
+        if (this.#head === null) {
+            return null
+        }
+
+        return this.#head.value
     }
 
     get tail() {
@@ -134,10 +138,8 @@ export class LinkedList {
             return
         }
 
-        if (this.size === 0) {
-            this.#head = other.head
-        } else {
-            this.tail!.nextNode = other.head
+        for (let i = 0; i < other.size; i++) {
+            this.append(other.at(i)!.value)
         }
     }
 
