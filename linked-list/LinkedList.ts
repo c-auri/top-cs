@@ -26,7 +26,7 @@ export class LinkedList {
             current = current.nextNode
         }
 
-        return current
+        return current?.value ?? null
     }
 
     get size() {
@@ -124,7 +124,7 @@ export class LinkedList {
         if (this.#head === null) {
             this.#head = newNode
         } else {
-            this.tail!.nextNode = newNode
+            this.at(this.size - 1)!.nextNode = newNode
         }
     }
 

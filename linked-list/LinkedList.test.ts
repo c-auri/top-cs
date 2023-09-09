@@ -117,7 +117,7 @@ describe('Inserting at', () => {
         test('sets given value to tail', () => {
             const list = new LinkedList('head', 'tail')
             list.insertAt('new tail', 1)
-            expect(list.tail!.value).toBe('new tail')
+            expect(list.tail).toBe('new tail')
         })
         test('increments size', () => {
             const list = new LinkedList('head', 'tail')
@@ -154,7 +154,7 @@ describe('Appending a value', () => {
             list.append('head')
             list.append('tail')
             list.append(value)
-            expect(list.tail!.value).toBe(value)
+            expect(list.tail).toBe(value)
         })
         test('increments the size', () => {
             const list = new LinkedList()
@@ -176,7 +176,7 @@ describe('Appending a value', () => {
             const value = 'a new node'
             const list = new LinkedList()
             list.append(value)
-            expect(list.tail!.value).toBe(value)
+            expect(list.tail).toBe(value)
         })
         test('results in size 1', () => {
             const list = new LinkedList()
@@ -218,7 +218,7 @@ describe('Prepending a value', () => {
             const value = 'a new node'
             const list = new LinkedList()
             list.prepend(value)
-            expect(list.tail!.value).toBe(value)
+            expect(list.tail).toBe(value)
         })
         test('results in size 1', () => {
             const list = new LinkedList()
@@ -336,12 +336,12 @@ describe('Removing', () => {
         test('decrements size', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(list.size - 1)
-            expect(list.tail!.value).toBe('middle')
+            expect(list.tail).toBe('middle')
         })
         test('sets predecessor of previous tail as new tail', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(2)
-            expect(list.tail!.value).toBe('middle')
+            expect(list.tail).toBe('middle')
         })
     })
 })
@@ -374,7 +374,7 @@ describe('Pop', () => {
         test('removes the tail', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.pop()
-            expect(list.tail!.value).toBe('middle')
+            expect(list.tail).toBe('middle')
         })
     })
     describe('from an empty list', () => {
