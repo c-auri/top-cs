@@ -11,6 +11,9 @@ export class LinkedList {
         }
     }
 
+    /**
+     * Returns the first value in the list.
+     */
     get head() {
         if (this.#head === null) {
             return null
@@ -19,6 +22,9 @@ export class LinkedList {
         return this.#head.value
     }
 
+    /**
+     * Returns the last value in the list.
+     */
     get tail() {
         let current = this.#head
 
@@ -29,6 +35,9 @@ export class LinkedList {
         return current?.value ?? null
     }
 
+    /**
+     * Returns the number of values in the list.
+     */
     get size() {
         if (this.#head === null) {
             return 0
@@ -45,6 +54,9 @@ export class LinkedList {
         return size
     }
 
+    /**
+     * Returns whether the list contains the given value.
+     */
     contains(value: any) {
         let current = this.#head
 
@@ -59,6 +71,9 @@ export class LinkedList {
         return false
     }
 
+    /**
+     * Returns the index position of the given value.
+     */
     find(value: any) {
         let currentNode = this.#head
         let currentPosition = 0
@@ -75,10 +90,16 @@ export class LinkedList {
         return null
     }
 
+    /**
+     * Returns the value at the given index position.
+     */
     at(index: number) {
         return this.#nodeAt(index)?.value ?? null
     }
 
+    /**
+     * Adds the given value to the given index position.
+     */
     insertAt(value: any, index: number) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')
@@ -102,6 +123,9 @@ export class LinkedList {
         nodeToInsert.nextNode = nodeAfter
     }
 
+    /**
+     * Adds the given value to the start of the list.
+     */
     append(value: any) {
         const newNode = new Node(value)
 
@@ -112,11 +136,17 @@ export class LinkedList {
         }
     }
 
+    /**
+     * Adds the given value to the end of the list.
+     */
     prepend(value: any) {
         const newHead = new Node(value, this.#head)
         this.#head = newHead
     }
 
+    /**
+     * Concatenates this list with another list.
+     */
     concat(other: LinkedList) {
         if (other.size === 0) {
             return
@@ -127,6 +157,9 @@ export class LinkedList {
         }
     }
 
+    /**
+     * Removes the value at the given index position.
+     */
     removeAt(index: number) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')
@@ -145,6 +178,10 @@ export class LinkedList {
         this.#nodeAt(index - 1)!.nextNode = this.#nodeAt(index + 1)
     }
 
+    /**
+     * Removes the value at the start of the list.
+     * @returns the removed value.
+     */
     shift() {
         if (this.#head === null) {
             throw new Error('List is empty')
@@ -155,6 +192,10 @@ export class LinkedList {
         return head.value
     }
 
+    /**
+     * Removes the value at the end of the list.
+     * @returns the removed value.
+     */
     pop() {
         if (this.#head === null) {
             throw new Error('List is empty')
@@ -179,6 +220,9 @@ export class LinkedList {
         return result
     }
 
+    /**
+     * Returns the string representation of the list.
+     */
     toString() {
         let result = ''
         let current = this.#head
@@ -193,6 +237,9 @@ export class LinkedList {
         return result
     }
 
+    /**
+     * Returns an array containing all the values of the list in order.
+     */
     toArray() {
         const result = []
         let current = this.#head
@@ -205,6 +252,9 @@ export class LinkedList {
         return result
     }
 
+    /**
+     * Returns the node at the given index position.
+     */
     #nodeAt(index: number) {
         if (index < 0) {
             throw new Error('index must be non-negative')
