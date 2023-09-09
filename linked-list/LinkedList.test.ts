@@ -297,6 +297,11 @@ describe('Removing', () => {
             list.removeAt(0)
             expect(list.contains('head')).toBe(false)
         })
+        test('returns the removed value', () => {
+            const list = new LinkedList('head', 'middle', 'tail')
+            const returnValue = list.removeAt(0)
+            expect(returnValue).toBe('head')
+        })
         test('decrements size', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             const previousSize = list.size
@@ -315,6 +320,11 @@ describe('Removing', () => {
             list.removeAt(1)
             expect(list.contains('middle')).toBe(false)
         })
+        test('returns the removed value', () => {
+            const list = new LinkedList('head', 'middle', 'tail')
+            const returnValue = list.removeAt(1)
+            expect(returnValue).toBe('middle')
+        })
         test('decrements size', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             const previousSize = list.size
@@ -332,6 +342,11 @@ describe('Removing', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(2)
             expect(list.contains('tail')).toBe(false)
+        })
+        test('returns the removed value', () => {
+            const list = new LinkedList('head', 'middle', 'tail')
+            const returnValue = list.removeAt(2)
+            expect(returnValue).toBe('tail')
         })
         test('decrements size', () => {
             const list = new LinkedList('head', 'middle', 'tail')

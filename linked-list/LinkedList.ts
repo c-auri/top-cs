@@ -159,23 +159,24 @@ export class LinkedList {
 
     /**
      * Removes the value at the given index position.
+     * @returns the removed value.
      */
     removeAt(index: number) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')
         }
 
+        const value = this.at(index)
+
         if (index === 0) {
             this.#head = this.#head!.nextNode
-            return
-        }
-
-        if (index === this.size - 1) {
+        } else if (index === this.size - 1) {
             this.pop()
-            return
+        } else {
+            this.#nodeAt(index - 1)!.nextNode = this.#nodeAt(index + 1)
         }
 
-        this.#nodeAt(index - 1)!.nextNode = this.#nodeAt(index + 1)
+        return value
     }
 
     /**
