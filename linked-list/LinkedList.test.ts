@@ -19,9 +19,9 @@ describe('A newly constructed list', () => {
         })
         test('contains these values in the correct order', () => {
             const list = new LinkedList('head', 'middle', 'tail')
-            expect(list.at(0)!.value).toBe('head')
-            expect(list.at(1)!.value).toBe('middle')
-            expect(list.at(2)!.value).toBe('tail')
+            expect(list.at(0)).toBe('head')
+            expect(list.at(1)).toBe('middle')
+            expect(list.at(2)).toBe('tail')
         })
     })
 })
@@ -78,15 +78,15 @@ describe('Accessing a node at', () => {
     })
     test('index 0 returns the head', () => {
         const list = new LinkedList('head', 'tail')
-        expect(list.at(0)!.value).toBe('head')
+        expect(list.at(0)).toBe('head')
     })
     test('a middle index returns the node at that position', () => {
         const list = new LinkedList('head', 'middle', 'tail')
-        expect(list.at(1)!.value).toBe('middle')
+        expect(list.at(1)).toBe('middle')
     })
     test('the last index returns the tail', () => {
         const list = new LinkedList('head', 'middle', 'tail')
-        expect(list.at(2)!.value).toBe('tail')
+        expect(list.at(2)).toBe('tail')
     })
     test('an index larger than the size of the list returns null', () => {
         const list = new LinkedList('head', 'tail')
@@ -104,7 +104,7 @@ describe('Inserting at', () => {
         test('moves previous head to the successor of the prepended node', () => {
             const list = new LinkedList('head', 'tail')
             list.insertAt('new head', 0)
-            expect(list.at(1)!.value).toBe('head')
+            expect(list.at(1)).toBe('head')
         })
         test('increments size', () => {
             const list = new LinkedList('head', 'tail')
@@ -130,12 +130,12 @@ describe('Inserting at', () => {
         test('sets value to given index', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.insertAt('insertion', 1)
-            expect(list.at(1)!.value).toBe('insertion')
+            expect(list.at(1)).toBe('insertion')
         })
         test('appends previous node at that position to the inserted node', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.insertAt('insertion', 1)
-            expect(list.at(2)!.value).toBe('middle')
+            expect(list.at(2)).toBe('middle')
         })
         test('increments size', () => {
             const list = new LinkedList('head', 'middle', 'tail')
@@ -198,7 +198,7 @@ describe('Prepending a value', () => {
             const oldHead = 'old head'
             const list = new LinkedList(oldHead, 'tail')
             list.prepend('new head')
-            expect(list.at(1)!.value).toBe(oldHead)
+            expect(list.at(1)).toBe(oldHead)
         })
         test('increments the size', () => {
             const list = new LinkedList('head', 'tail')
@@ -324,7 +324,7 @@ describe('Removing', () => {
         test('puts successor of removed node at given index', () => {
             const list = new LinkedList('head', 'middle', 'tail')
             list.removeAt(1)
-            expect(list.at(1)!.value).toBe('tail')
+            expect(list.at(1)).toBe('tail')
         })
     })
     describe('at last index', () => {

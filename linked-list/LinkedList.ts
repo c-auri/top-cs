@@ -76,23 +76,7 @@ export class LinkedList {
     }
 
     at(index: number) {
-        if (index < 0) {
-            throw new Error('index must be non-negative')
-        }
-
-        if (index === 0) {
-            return this.#head
-        }
-
-        let currentNode = this.#head
-        let currentPosition = 0
-
-        while (index !== currentPosition && currentNode !== null) {
-            currentNode = currentNode.nextNode
-            currentPosition++
-        }
-
-        return currentNode
+        return this.#nodeAt(index)?.value ?? null
     }
 
     insertAt(value: any, index: number) {
@@ -111,7 +95,7 @@ export class LinkedList {
         }
 
         const nodeToInsert = new Node(value)
-        const nodeBefore = this.at(index - 1)
+        const nodeBefore = this.#nodeAt(index - 1)
         const nodeAfter = nodeBefore!.nextNode
 
         nodeBefore!.nextNode = nodeToInsert
@@ -124,7 +108,7 @@ export class LinkedList {
         if (this.#head === null) {
             this.#head = newNode
         } else {
-            this.at(this.size - 1)!.nextNode = newNode
+            this.#nodeAt(this.size - 1)!.nextNode = newNode
         }
     }
 
@@ -139,7 +123,7 @@ export class LinkedList {
         }
 
         for (let i = 0; i < other.size; i++) {
-            this.append(other.at(i)!.value)
+            this.append(other.#nodeAt(i)!.value)
         }
     }
 
@@ -158,7 +142,7 @@ export class LinkedList {
             return
         }
 
-        this.at(index - 1)!.nextNode = this.at(index + 1)
+        this.#nodeAt(index - 1)!.nextNode = this.#nodeAt(index + 1)
     }
 
     shift() {
@@ -219,5 +203,25 @@ export class LinkedList {
         }
 
         return result
+    }
+
+    #nodeAt(index: number) {
+        if (index < 0) {
+            throw new Error('index must be non-negative')
+        }
+
+        if (index === 0) {
+            return this.#head
+        }
+
+        let currentNode = this.#head
+        let currentPosition = 0
+
+        while (index !== currentPosition && currentNode !== null) {
+            currentNode = currentNode.nextNode
+            currentPosition++
+        }
+
+        return currentNode
     }
 }

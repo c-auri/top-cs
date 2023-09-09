@@ -143,18 +143,19 @@ export class Node {
     levelOrder() {
         const result = new LinkedList()
         result.append(this)
-        let current = result.at(0)
+        let i = 0
 
-        while (current) {
-            if (current.value.hasLeft) {
-                result.append(current.value.left)
+        while (i < result.size) {
+            const current = result.at(i)
+            if (current.hasLeft) {
+                result.append(current.left)
             }
 
-            if (current.value.hasRight) {
-                result.append(current.value.right)
+            if (current.hasRight) {
+                result.append(current.right)
             }
 
-            current = current.nextNode
+            i++
         }
 
         return result
