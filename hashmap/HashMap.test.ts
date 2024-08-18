@@ -65,3 +65,57 @@ describe('Trying to get a value', () => {
     })
   })
 })
+
+describe('Trying to remove a key', () => {
+  test('returns false when the given key does not exist', () => {
+    const map = new HashMap()
+    expect(map.remove("key")).toBe(false)
+  })
+  test('does not change numberOfEntries when the given key does not exist', () => {
+    const map = new HashMap()
+    map.set("key1", "value")
+    const previous = map.numberOfEntries
+    map.remove("key2")
+    expect(map.numberOfEntries).toBe(previous)
+  })
+  test('returns true when the given key exists', () => {
+    const map = new HashMap()
+    map.set("key", "value")
+    expect(map.remove("key")).toBe(true)
+  })
+  test('removes the entry when the given key exists', () => {
+    const map = new HashMap()
+    map.set("key", "value")
+    map.remove("key")
+    expect(map.has("key")).toBe(false)
+  })
+  test('reduces numberOfEntries by 1 when the key exists', () => {
+    const map = new HashMap()
+    map.set("key", "value")
+    const previous = map.numberOfEntries
+    map.remove("key")
+    expect(map.numberOfEntries).toBe(previous - 1)
+  })
+  test('does not change other entries', () => {
+    const map = new HashMap()
+    map.set("key1", "value1")
+    map.set("key2", "value2")
+    map.remove("key1")
+    map.remove("key3")
+    expect(map.has("key2")).toBe(true)
+  })
+  test('does not change numberOfBuckets when the given key does not exist', () => {
+    const map = new HashMap()
+    map.set("key1", "value")
+    const previous = map.numberOfBuckets
+    map.remove("key2")
+    expect(map.numberOfBuckets).toBe(previous)
+  })
+  test('does not change numberOfBuckets when the given key exists', () => {
+    const map = new HashMap()
+    map.set("key", "value")
+    const previous = map.numberOfBuckets
+    map.remove("key")
+    expect(map.numberOfBuckets).toBe(previous)
+  })
+})

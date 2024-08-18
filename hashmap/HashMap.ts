@@ -48,4 +48,12 @@ export class HashMap {
     const result = this.#buckets[this.#hash(key)]
     return result === undefined ? null : result
   }
+
+  remove(key: string) {
+    if (!this.has(key))
+      return false
+
+    delete this.#buckets[this.#hash(key)]
+    return true
+  }
 }
