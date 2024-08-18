@@ -40,6 +40,10 @@ export class HashMap {
     this.#buckets[hash] = value
   }
 
+  has(key: string) {
+    return this.#buckets[this.#hash(key)] !== undefined
+  }
+
   get(key: string) {
     const result = this.#buckets[this.#hash(key)]
     return result === undefined ? null : result

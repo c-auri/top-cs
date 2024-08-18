@@ -38,6 +38,18 @@ describe('Inserting a key value pair', () => {
   })
 })
 
+describe('Has returns', () => {
+  test('true if the given key exists', () => {
+    const map = new HashMap()
+    map.set("key", "value")
+    expect(map.has("key")).toBe(true)
+  })
+  test('false if the given key does not exist', () => {
+    const map = new HashMap()
+    expect(map.has("key")).toBe(false)
+  })
+})
+
 describe('Trying to get a value', () => {
   describe('of a previously inserted key', () => {
     test('returns that value', () => {
