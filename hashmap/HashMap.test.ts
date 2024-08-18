@@ -119,3 +119,30 @@ describe('Trying to remove a key', () => {
     expect(map.numberOfBuckets).toBe(previous)
   })
 })
+
+describe('Clear', () => {
+  test('removes all entries', () => {
+    const map = new HashMap()
+    map.set("key1", "value1")
+    map.set("key2", "value2")
+    map.set("key3", "value3")
+    map.clear()
+    expect(map.has("key1")).toBe(false)
+    expect(map.has("key2")).toBe(false)
+    expect(map.has("key3")).toBe(false)
+  })
+  test('resets numberOfEntries to 0', () => {
+    const map = new HashMap()
+    map.set("key1", "value1")
+    map.set("key2", "value2")
+    map.set("key3", "value3")
+    map.clear()
+    expect(map.numberOfEntries).toBe(0)
+  })
+  test(`resets numberOfBuckets to ${HashMap.initSize}`, () => {
+    const map = new HashMap()
+    for (let i = 0; i <= HashMap.initSize; i++) map.set("key" + i, "value" + 1)
+    map.clear()
+    expect(map.numberOfBuckets).toBe(HashMap.initSize)
+  })
+})

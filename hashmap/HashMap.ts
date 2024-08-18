@@ -56,4 +56,10 @@ export class HashMap {
     delete this.#buckets[this.#hash(key)]
     return true
   }
+
+  clear() {
+    for (const key in this.#buckets) {
+      delete this.#buckets[key]
+    }
+  }
 }
