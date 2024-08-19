@@ -50,7 +50,7 @@ describe('Setting a key value pair', () => {
   })
 })
 
-describe('Has returns', () => {
+describe('has returns', () => {
   test('true if the given key exists', () => {
     const map = new HashMap()
     map.set("key", "value")
@@ -78,7 +78,7 @@ describe('Trying to get a value of a key', () => {
   })
 })
 
-describe('Trying to remove a key', () => {
+describe('trying to remove a key', () => {
   test('returns false when the given key does not exist', () => {
     const map = new HashMap()
     expect(map.remove("key")).toBe(false)
@@ -132,7 +132,7 @@ describe('Trying to remove a key', () => {
   })
 })
 
-describe('Clear', () => {
+describe('clear', () => {
   test('removes all entries', () => {
     const map = new HashMap()
     map.set("key1", "value1")
@@ -159,7 +159,7 @@ describe('Clear', () => {
   })
 })
 
-describe('Keys returns', () => {
+describe('keys returns', () => {
   test('an empty array when the HashMap is empty', () => {
     expect(new HashMap().keys).toEqual(new Array<string>())
   })
@@ -172,7 +172,7 @@ describe('Keys returns', () => {
   })
 })
 
-describe('Values returns', () => {
+describe('values returns', () => {
   test('an empty array when the HashMap is empty', () => {
     expect(new HashMap().values).toEqual(new Array<string>())
   })
