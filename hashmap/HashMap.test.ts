@@ -171,3 +171,16 @@ describe('Keys returns', () => {
     expect(map.keys).toEqual(["key1", "key2", "key3"])
   })
 })
+
+describe('Values returns', () => {
+  test('an empty array when the HashMap is empty', () => {
+    expect(new HashMap().values).toEqual(new Array<string>())
+  })
+  test('an array containing all the values when the HashMap is not empty', () => {
+    const map = new HashMap()
+    map.set("key1", "value1")
+    map.set("key2", "value2")
+    map.set("key3", "value3")
+    expect(map.values).toEqual(["value1", "value2", "value3"])
+  })
+})

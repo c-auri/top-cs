@@ -58,6 +58,14 @@ export class HashMap {
         new Array<string>())
   }
 
+  get values() {
+    return this.#buckets
+      .filter(Boolean)
+      .reduce(
+        (result, list) => result.concat(list!.toArray().map(kvp=> (kvp as KeyValuePair).value)),
+        new Array<string>())
+  }
+
   set(key: string, value: string) {
     const hash = this.#hash(key)
 
