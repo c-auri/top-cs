@@ -54,9 +54,10 @@ export class HashMap {
     const hash = this.#hash(key)
     const kvp = new KeyValuePair(key, value)
 
-    console.assert(hash > 0 && hash < this.#buckets.length)
+    console.assert(hash >= 0 && hash < this.#buckets.length, hash)
 
     if (this.has(key)) {
+      console.log(`Collision for ${key}.`)
       this.#buckets[hash]!.append(kvp)
     }
 
