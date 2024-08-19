@@ -60,16 +60,18 @@ export class HashMap {
 
   set(key: string, value: string) {
     const hash = this.#hash(key)
-    const kvp = new KeyValuePair(key, value)
 
     console.assert(hash >= 0 && hash < this.#buckets.length, hash)
 
     if (this.has(key)) {
-      console.log(`Collision for ${key}.`)
-      this.#buckets[hash]!.append(kvp)
+      this.remove(key)
     }
 
-    this.#buckets[hash] = new LinkedList(kvp)
+    if (this.#buckets[hash].size > 0) {
+      console.log(`Collision for ${key}.`)
+    }
+
+    this.#buckets[hash].append(new KeyValuePair(key, value))
   }
 
   has(key: string) {
@@ -87,7 +89,7 @@ export class HashMap {
   remove(key: string) {
     const hash = this.#hash(key)
     const index = this.#buckets[hash].toArray().map(kvp => kvp.key).indexOf(key)
-    
+
     if (index < 0) {
       return false
     } else {

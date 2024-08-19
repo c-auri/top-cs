@@ -17,10 +17,21 @@ describe('Setting a key value pair', () => {
       map.set("key", "value")
       expect(map.numberOfEntries).toBe(previous + 1)
     })
-    test('makes the value retrievable with get', () => {
+  })
+  describe('with collision', () => {
+    test('increases numberOfEntries by 1', () => {
       const map = new HashMap()
-      map.set("key", "value")
-      expect(map.get("key")).toBe("value")
+      map.set("0", "value1")
+      const previous = map.numberOfEntries
+      map.set("p", "value2")
+      expect(map.numberOfEntries).toBe(previous + 1)
+    })
+    test('logs a message to the console', () => {
+      const log = jest.spyOn(global.console, 'log')
+      const map = new HashMap()
+      map.set("0", "value1")
+      map.set("p", "value2")
+      expect(log).toHaveBeenCalled()
     })
   })
   describe('with a key that already exists', () => {
@@ -145,5 +156,18 @@ describe('Clear', () => {
     for (let i = 0; i <= HashMap.initSize; i++) map.set("key" + i, "value" + 1)
     map.clear()
     expect(map.numberOfBuckets).toBe(HashMap.initSize)
+  })
+})
+
+describe('Keys returns', () => {
+  test('an empty array when the HashMap is empty', () => {
+    expect(new HashMap().keys).toEqual(new Array<string>())
+  })
+  test('an array containing all the keys when the HashMap is not empty', () => {
+    const map = new HashMap()
+    map.set("key1", "value1")
+    map.set("key2", "value2")
+    map.set("key3", "value3")
+    expect(map.keys).toEqual(["key1", "key2", "key3"])
   })
 })
