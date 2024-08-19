@@ -36,7 +36,7 @@ export class HashMap {
 
     for (let i = 0; i < key.length; i++) {
       result = prime * result + key.charCodeAt(i)
-      result %= this.#buckets.length
+      result %= this.numberOfBuckets
     }
 
     return result;
@@ -47,7 +47,7 @@ export class HashMap {
   }
 
   get numberOfEntries() {
-    return this.#buckets.filter(Boolean).length
+    return this.keys.length
   }
 
   get keys() {
