@@ -9,12 +9,13 @@ describe('A newly constructed HashMap', () => {
   })
 })
 
-describe('Inserting a key value pair', () => {
+describe('Setting a key value pair', () => {
   describe('without collision', () => {
     test('increases numberOfEntries by 1', () => {
       const map = new HashMap()
+      const previous = map.numberOfEntries
       map.set("key", "value")
-      expect(map.numberOfEntries).toBe(1)
+      expect(map.numberOfEntries).toBe(previous + 1)
     })
     test('makes the value retrievable with get', () => {
       const map = new HashMap()
@@ -22,7 +23,7 @@ describe('Inserting a key value pair', () => {
       expect(map.get("key")).toBe("value")
     })
   })
-  describe('with collision', () => {
+  describe('with a key that already exists', () => {
     test('does not increase numberOfEntries', () => {
       const map = new HashMap()
       map.set("key", "old value")
@@ -50,18 +51,18 @@ describe('Has returns', () => {
   })
 })
 
-describe('Trying to get a value', () => {
-  describe('of a previously inserted key', () => {
+describe('Trying to get a value of a key', () => {
+  describe('that does not exist', () => {
+    test('returns null', () => {
+      const map = new HashMap()
+      expect(map.get("key")).toBe(null)
+    })
+  })
+  describe('that exists', () => {
     test('returns that value', () => {
       const map = new HashMap()
       map.set("key", "value")
       expect(map.get("key")).toBe("value")
-    })
-  })
-  describe('of a key that does not exist', () => {
-    test('returns null', () => {
-      const map = new HashMap()
-      expect(map.get("key")).toBe(null)
     })
   })
 })
