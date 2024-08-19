@@ -1,9 +1,33 @@
+import { LinkedList } from "../linked-list/LinkedList"
+
+class KeyValuePair {
+  #key: string
+  #value: string
+
+  constructor(key: string, value: string) {
+    this.#key = key
+    this.#value = value
+  }
+
+  get key() {
+    return this.#key
+  }
+
+  get value() {
+    return this.#value
+  }
+}
+
 export class HashMap {
   static initSize = 16
-  #buckets: string[]
+  #buckets: Array<LinkedList>
 
   constructor() {
-    this.#buckets = new Array<string>(16)
+    this.#buckets = new Array<LinkedList>()
+
+    for (let i = 0; i < HashMap.initSize; i++) {
+      this.#buckets.push(new LinkedList())
+    }
   }
 
   #hash(key: string) {
@@ -28,38 +52,44 @@ export class HashMap {
 
   set(key: string, value: string) {
     const hash = this.#hash(key)
+    const kvp = new KeyValuePair(key, value)
 
     console.assert(hash > 0 && hash < this.#buckets.length)
 
-    const oldValue = this.#buckets[hash]
-
-    if (oldValue === undefined) {
-      console.log(`Collision for key ${key}, overwriting \"${oldValue}\".`)
+    if (this.has(key)) {
+      this.#buckets[hash]!.append(kvp)
     }
 
-    this.#buckets[hash] = value
+    this.#buckets[hash] = new LinkedList(kvp)
   }
 
   has(key: string) {
-    return this.#buckets[this.#hash(key)] !== undefined
+    return this.#buckets[this.#hash(key)].toArray().map(kvp => kvp.key).includes(key)
   }
 
   get(key: string) {
-    const result = this.#buckets[this.#hash(key)]
-    return result === undefined ? null : result
+    if (!this.has(key)) {
+      return null
+    }
+
+    return this.#buckets[this.#hash(key)]!.tail.value
   }
 
   remove(key: string) {
-    if (!this.has(key))
+    const hash = this.#hash(key)
+    const index = this.#buckets[hash].toArray().map(kvp => kvp.key).indexOf(key)
+    
+    if (index < 0) {
       return false
-
-    delete this.#buckets[this.#hash(key)]
-    return true
+    } else {
+      this.#buckets[hash].removeAt(index)
+      return true
+    }
   }
 
   clear() {
     for (const key in this.#buckets) {
-      delete this.#buckets[key]
+      this.#buckets[key] = new LinkedList()
     }
   }
 }
