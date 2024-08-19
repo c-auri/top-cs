@@ -30,18 +30,6 @@ export class HashMap {
     }
   }
 
-  #hash(key: string) {
-    let result = 0
-    const prime = 31
-
-    for (let i = 0; i < key.length; i++) {
-      result = prime * result + key.charCodeAt(i)
-      result %= this.numberOfBuckets
-    }
-
-    return result;
-  }
-
   get numberOfBuckets() {
     return this.#buckets.length
   }
@@ -110,5 +98,17 @@ export class HashMap {
     for (const key in this.#buckets) {
       this.#buckets[key] = new LinkedList()
     }
+  }
+
+  #hash(key: string) {
+    let result = 0
+    const prime = 31
+
+    for (let i = 0; i < key.length; i++) {
+      result = prime * result + key.charCodeAt(i)
+      result %= this.numberOfBuckets
+    }
+
+    return result;
   }
 }
