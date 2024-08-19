@@ -50,6 +50,14 @@ export class HashMap {
     return this.#buckets.filter(Boolean).length
   }
 
+  get keys() {
+    return this.#buckets
+      .filter(Boolean)
+      .reduce(
+        (result, list) => result.concat(list!.toArray().map(kvp=> (kvp as KeyValuePair).key)),
+        new Array<string>())
+  }
+
   set(key: string, value: string) {
     const hash = this.#hash(key)
     const kvp = new KeyValuePair(key, value)
