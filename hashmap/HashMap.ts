@@ -1,6 +1,6 @@
 import { LinkedList } from "../linked-list/LinkedList"
 
-export class KeyValuePair {
+export class Entry {
   #key: string
   #value: string
 
@@ -43,15 +43,15 @@ export class HashMap {
       .filter(Boolean)
       .reduce(
         (result, bucket) => result.concat(bucket!.toArray()), 
-        new Array<KeyValuePair>())
+        new Array<Entry>())
   }
 
   get keys() {
-    return this.entries.map(kvp => kvp.key)
+    return this.entries.map(entry => entry.key)
   }
 
   get values() {
-    return this.entries.map(kvp => kvp.value)
+    return this.entries.map(entry => entry.value)
   }
 
   set(key: string, value: string) {
@@ -67,11 +67,11 @@ export class HashMap {
       console.log(`Collision for ${key}.`)
     }
 
-    this.#buckets[hash].append(new KeyValuePair(key, value))
+    this.#buckets[hash].append(new Entry(key, value))
   }
 
   has(key: string) {
-    return this.#buckets[this.#hash(key)].toArray().map(kvp => kvp.key).includes(key)
+    return this.#buckets[this.#hash(key)].toArray().map(entry => entry.key).includes(key)
   }
 
   get(key: string) {
@@ -84,7 +84,7 @@ export class HashMap {
 
   remove(key: string) {
     const hash = this.#hash(key)
-    const index = this.#buckets[hash].toArray().map(kvp => kvp.key).indexOf(key)
+    const index = this.#buckets[hash].toArray().map(entry => entry.key).indexOf(key)
 
     if (index < 0) {
       return false

@@ -1,4 +1,4 @@
-import { HashMap, KeyValuePair } from "./HashMap.ts"
+import { HashMap, Entry } from "./HashMap.ts"
 
 describe('A newly constructed HashMap', () => {
   test(`has ${HashMap.initSize} buckets`, () => {
@@ -161,7 +161,7 @@ describe('clear', () => {
 
 describe('entries returns', () => {
   test('an empty array when the HashMap is empty', () => {
-    expect(new HashMap().keys).toEqual(new Array<KeyValuePair>())
+    expect(new HashMap().keys).toEqual(new Array<Entry>())
   })
   test('an array containing all the entries when the HashMap is not empty', () => {
     const map = new HashMap()
@@ -169,9 +169,9 @@ describe('entries returns', () => {
     map.set("key2", "value2")
     map.set("key3", "value3")
     expect(map.entries).toEqual([
-      new KeyValuePair("key1", "value1"),
-      new KeyValuePair("key2", "value2"),
-      new KeyValuePair("key3", "value3"),
+      new Entry("key1", "value1"),
+      new Entry("key2", "value2"),
+      new Entry("key3", "value3"),
     ])
   })
 })
