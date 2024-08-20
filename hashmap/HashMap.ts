@@ -59,33 +59,32 @@ export class HashMap {
 
     console.assert(hash >= 0 && hash < this.#buckets.length, hash)
 
-    if (this.has(key)) {
+    if (this.has(key))
       this.remove(key)
-    }
 
-    if (this.#buckets[hash].size > 0) {
+    if (this.#buckets[hash].size > 0)
       console.log(`Collision for ${key}.`)
-    }
 
     this.#buckets[hash].append(new Entry(key, value))
 
     if (this.numberOfEntries / this.numberOfBuckets > this.#loadThreshold) {
       const entries = this.entries
       this.clear(2 * this.#buckets.length)
-      for (const entry of entries) {
+      for (const entry of entries)
         this.set(entry.key, entry.value)
-      }
     }
   }
 
   has(key: string) {
-    return this.#buckets[this.#hash(key)].toArray().map(entry => entry.key).includes(key)
+    return this.#buckets[this.#hash(key)]
+      .toArray()
+      .map(entry => entry.key)
+      .includes(key)
   }
 
   get(key: string) {
-    if (!this.has(key)) {
+    if (!this.has(key))
       return null
-    }
 
     return this.#buckets[this.#hash(key)]!.tail.value
   }
@@ -105,9 +104,8 @@ export class HashMap {
   clear(size = this.#initSize) {
     this.#buckets = new Array<LinkedList>()
 
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < size; i++)
       this.#buckets[i] = new LinkedList()
-    }
   }
 
   #hash(key: string) {
