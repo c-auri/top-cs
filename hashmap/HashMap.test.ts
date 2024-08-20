@@ -1,7 +1,7 @@
 import { HashMap, Entry } from "./HashMap.ts"
 
 describe('A newly constructed HashMap', () => {
-  test(`has ${HashMap.initSize} buckets`, () => {
+  test(`has 16 buckets`, () => {
     expect(new HashMap().numberOfBuckets).toBe(16)
   })
   test('has 0 entries.', () => {
@@ -151,11 +151,13 @@ describe('clear', () => {
     map.clear()
     expect(map.numberOfEntries).toBe(0)
   })
-  test(`resets numberOfBuckets to ${HashMap.initSize}`, () => {
-    const map = new HashMap()
-    for (let i = 0; i <= HashMap.initSize; i++) map.set("key" + i, "value" + 1)
+  test('resets numberOfBuckets to initSize', () => {
+    const initSize = 16
+    const map = new HashMap(initSize)
+    for (let i = 0; i <= initSize; i++) map.set("key" + i, "value" + 1)
+    expect(map.numberOfBuckets).toBeGreaterThan(initSize)
     map.clear()
-    expect(map.numberOfBuckets).toBe(HashMap.initSize)
+    expect(map.numberOfBuckets).toBe(initSize)
   })
 })
 
@@ -199,5 +201,30 @@ describe('values returns', () => {
     map.set("key2", "value2")
     map.set("key3", "value3")
     expect(map.values).toEqual(["value1", "value2", "value3"])
+  })
+})
+
+describe('The number of buckets', () => {
+  test('does not change before the load threshold is reached', () => {
+    const initSize = 16
+    const loadThreshold = 0.75
+    const map = new HashMap(initSize, loadThreshold)
+
+    for (let i = 0; i < loadThreshold * initSize; i++) 
+      map.set("key" + i, "value" + 1)
+
+    expect(map.numberOfBuckets).toBe(initSize)
+  })
+  test('doubles when the load threshold is reached', () => {
+    const initSize = 16
+    const loadThreshold = 0.75
+    const map = new HashMap(initSize, loadThreshold)
+    
+    for (let i = 0; i < loadThreshold * initSize; i++) 
+      map.set("key" + i, "value" + 1)
+
+    expect(map.numberOfBuckets).toBe(initSize)
+    map.set('the straw that broke', 'the camel\'s back')
+    expect(map.numberOfBuckets).toBe(2 * initSize)
   })
 })

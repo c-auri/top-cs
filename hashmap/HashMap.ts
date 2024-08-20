@@ -19,13 +19,16 @@ export class Entry {
 }
 
 export class HashMap {
-  static initSize = 16
+  #initSize: number
+  #loadThreshold: number 
   #buckets: Array<LinkedList>
 
-  constructor() {
+  constructor(initSize: number = 16, loadThreshold: number = 0.75) {
+    this.#initSize = initSize
+    this.#loadThreshold = loadThreshold
     this.#buckets = new Array<LinkedList>()
 
-    for (let i = 0; i < HashMap.initSize; i++) {
+    for (let i = 0; i < this.#initSize; i++) {
       this.#buckets.push(new LinkedList())
     }
   }
@@ -68,6 +71,19 @@ export class HashMap {
     }
 
     this.#buckets[hash].append(new Entry(key, value))
+
+    if (this.numberOfEntries / this.numberOfBuckets > this.#loadThreshold) {
+      const entries = this.entries
+      const prevSize = this.#buckets.length
+
+      for (let i = 0; i < prevSize * 2; i++) {
+        this.#buckets[i] = new LinkedList()
+      }
+
+      for (const entry of entries) {
+        this.set(entry.key, entry.value)
+      }
+    }
   }
 
   has(key: string) {
@@ -95,8 +111,10 @@ export class HashMap {
   }
 
   clear() {
-    for (const key in this.#buckets) {
-      this.#buckets[key] = new LinkedList()
+    this.#buckets = new Array<LinkedList>()
+
+    for (let i = 0; i < this.#initSize; i++) {
+      this.#buckets[i] = new LinkedList()
     }
   }
 
