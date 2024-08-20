@@ -10,28 +10,12 @@ describe('A newly constructed HashMap', () => {
 })
 
 describe('Setting a key value pair', () => {
-  describe('without collision', () => {
+  describe('with a new key', () => {
     test('increases numberOfEntries by 1', () => {
       const map = new HashMap()
       const previous = map.numberOfEntries
       map.set("key", "value")
       expect(map.numberOfEntries).toBe(previous + 1)
-    })
-  })
-  describe('with collision', () => {
-    test('increases numberOfEntries by 1', () => {
-      const map = new HashMap()
-      map.set("0", "value1")
-      const previous = map.numberOfEntries
-      map.set("p", "value2")
-      expect(map.numberOfEntries).toBe(previous + 1)
-    })
-    test('logs a message to the console', () => {
-      const log = jest.spyOn(global.console, 'log')
-      const map = new HashMap()
-      map.set("0", "value1")
-      map.set("p", "value2")
-      expect(log).toHaveBeenCalled()
     })
   })
   describe('with a key that already exists', () => {
@@ -47,6 +31,31 @@ describe('Setting a key value pair', () => {
       map.set("key", "new value")
       expect(map.get("key")).toBe("new value")
     })
+  })
+})
+
+
+describe('When a collision occurs', () => {
+  test('numberOfEntries is increased by 1', () => {
+    const map = new HashMap()
+    map.set("0", "value1")
+    const previous = map.numberOfEntries
+    map.set("p", "value2")
+    expect(map.numberOfEntries).toBe(previous + 1)
+  })
+  test('a message is logged to the console', () => {
+    const log = jest.spyOn(global.console, 'log')
+    const map = new HashMap()
+    map.set("0", "value1")
+    map.set("p", "value2")
+    expect(log).toHaveBeenCalled()
+  })
+  test('both entries are retrievable', () => {
+    const map = new HashMap()
+    map.set("0", "value1")
+    map.set("p", "value2")
+    expect(map.get("0")).toBe("value1")
+    expect(map.get("p")).toBe("value2")
   })
 })
 

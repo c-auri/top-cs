@@ -86,7 +86,9 @@ export class HashMap {
     if (!this.has(key))
       return null
 
-    return this.#buckets[this.#hash(key)]!.tail.value
+    const bucket = this.#buckets[this.#hash(key)]!.toArray()
+    const index = bucket.findIndex(entry => entry.key === key)
+    return bucket[index].value
   }
 
   remove(key: string) {
