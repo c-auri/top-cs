@@ -27,10 +27,7 @@ export class HashMap {
     this.#initSize = initSize
     this.#loadThreshold = loadThreshold
     this.#buckets = new Array<LinkedList>()
-
-    for (let i = 0; i < this.#initSize; i++) {
-      this.#buckets.push(new LinkedList())
-    }
+    this.clear()
   }
 
   get numberOfBuckets() {
@@ -74,12 +71,7 @@ export class HashMap {
 
     if (this.numberOfEntries / this.numberOfBuckets > this.#loadThreshold) {
       const entries = this.entries
-      const prevSize = this.#buckets.length
-
-      for (let i = 0; i < prevSize * 2; i++) {
-        this.#buckets[i] = new LinkedList()
-      }
-
+      this.clear(2 * this.#buckets.length)
       for (const entry of entries) {
         this.set(entry.key, entry.value)
       }
@@ -110,10 +102,10 @@ export class HashMap {
     }
   }
 
-  clear() {
+  clear(size = this.#initSize) {
     this.#buckets = new Array<LinkedList>()
 
-    for (let i = 0; i < this.#initSize; i++) {
+    for (let i = 0; i < size; i++) {
       this.#buckets[i] = new LinkedList()
     }
   }
