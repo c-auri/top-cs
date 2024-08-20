@@ -1,6 +1,6 @@
 import { LinkedList } from "../linked-list/LinkedList"
 
-class KeyValuePair {
+export class KeyValuePair {
   #key: string
   #value: string
 
@@ -38,20 +38,20 @@ export class HashMap {
     return this.keys.length
   }
 
-  get keys() {
+  get entries() {
     return this.#buckets
       .filter(Boolean)
       .reduce(
-        (result, list) => result.concat(list!.toArray().map(kvp=> (kvp as KeyValuePair).key)),
-        new Array<string>())
+        (result, bucket) => result.concat(bucket!.toArray()), 
+        new Array<KeyValuePair>())
+  }
+
+  get keys() {
+    return this.entries.map(kvp => kvp.key)
   }
 
   get values() {
-    return this.#buckets
-      .filter(Boolean)
-      .reduce(
-        (result, list) => result.concat(list!.toArray().map(kvp=> (kvp as KeyValuePair).value)),
-        new Array<string>())
+    return this.entries.map(kvp => kvp.value)
   }
 
   set(key: string, value: string) {
