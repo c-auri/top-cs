@@ -39,11 +39,9 @@ export class HashMap {
   }
 
   get entries() {
-    return this.#buckets
-      .filter(Boolean)
-      .reduce(
-        (result, bucket) => result.concat(bucket!.toArray()), 
-        new Array<Entry>())
+    return this.#buckets.reduce(
+      (result, bucket) => result.concat(bucket.toArray()), 
+      new Array<Entry>())
   }
 
   get keys() {
