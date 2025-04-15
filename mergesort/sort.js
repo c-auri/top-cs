@@ -1,4 +1,4 @@
-export function sort(array: number[]): number[] {
+function sort(array) {
     if (array.length <= 1)
         return array
 
@@ -9,18 +9,18 @@ export function sort(array: number[]): number[] {
     return merge(sort(left), sort(right))
 }
 
-function merge(left: number[], right: number[]) {
+function merge(left, right) {
     let result = []
     let i = 0
     let j = 0
 
-    while (i < left.length || j < right.length) {
-        if (j === right.length || left[i] <= right[j]) {
+    while (i < left.length || j < right.length)
+        if (j === right.length || left[i] <= right[j])
             result.push(left[i++])
-        } else {
+        else
             result.push(right[j++])
-        }
-    }
 
     return result
 }
+
+module.exports = sort

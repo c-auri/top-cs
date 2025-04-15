@@ -1,4 +1,4 @@
-import { iterativeFibs, recursiveFibs } from './fibs.ts'
+({ iterativeFibs, recursiveFibs } = require('./fibs.js'))
 
 describe('iterativeFibs returns', () => {
     describe('the empty array', () => {

@@ -1,4 +1,4 @@
-import { sort } from './sort.ts'
+const sort = require('./sort')
 
 describe('sorts', () => {
     test('empty input', () => {
