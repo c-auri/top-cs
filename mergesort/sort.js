@@ -2,11 +2,16 @@ function sort(array) {
     if (array.length <= 1)
         return array
 
-    const middle = Math.round(array.length / 2)
-    const left = array.slice(0, middle)
-    const right = array.slice(middle)
-
+    const { left, right } = split(array)
     return merge(sort(left), sort(right))
+}
+
+function split(array) {
+    const middle = Math.round(array.length / 2)
+    return {
+        left: array.slice(0, middle),
+        right: array.slice(middle)
+    }
 }
 
 function merge(left, right) {
