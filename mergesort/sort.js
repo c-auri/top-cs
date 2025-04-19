@@ -16,14 +16,12 @@ function split(array) {
 
 function merge(left, right) {
     let result = []
-    let i = 0
-    let j = 0
 
-    while (i < left.length || j < right.length)
-        if (j === right.length || left[i] <= right[j])
-            result.push(left[i++])
+    while (left.length || right.length)
+        if (!right.length || left[0] <= right[0])
+            result.push(left.shift())
         else
-            result.push(right[j++])
+            result.push(right.shift())
 
     return result
 }
