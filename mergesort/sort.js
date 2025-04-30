@@ -39,4 +39,4 @@ function merge(left, right) {
     return result
 }
 
-module.exports = sort
+module.exports = { sort }

@@ -1,8 +1,8 @@
-import { Coordinate } from './Coordinate'
-import { Path } from './Path'
-import { LinkedList } from '../linked-list/LinkedList'
+const { Coordinate } = require('./Coordinate')
+const { Path } = require('./Path')
+const { LinkedList } = require('../linked-list/LinkedList')
 
-export function findShortestPaths(start: Coordinate, goal: Coordinate) {
+function findShortestPaths(start, goal) {
     if (start.equals(goal)) {
         return [new Path(start)]
     }
@@ -11,12 +11,12 @@ export function findShortestPaths(start: Coordinate, goal: Coordinate) {
     let currentLevel = new LinkedList()
     let nextLevel = new LinkedList(new Path(start))
 
-    while(results.size === 0) {
+    while (results.size === 0) {
         currentLevel = nextLevel
         nextLevel = new LinkedList()
 
         while (currentLevel.size > 0) {
-            const currentPath = currentLevel.shift() as Path
+            const currentPath = currentLevel.shift()
 
             for (const path of addAllowedMoves(currentPath)) {
                 if (path.target.equals(goal)) {
@@ -31,8 +31,8 @@ export function findShortestPaths(start: Coordinate, goal: Coordinate) {
     return results.toArray()
 }
 
-function addAllowedMoves(fromPath: Path) {
-    const result: Path[] = []
+function addAllowedMoves(fromPath) {
+    const result = []
 
     for (const move of moveSet) {
         const path = fromPath.target.tryAdd(move.columns, move.rows)
@@ -55,3 +55,5 @@ const moveSet = [
     { columns: -2, rows: -1 },
     { columns: -2, rows: 1 }
 ]
+
+module.exports = { findShortestPaths }

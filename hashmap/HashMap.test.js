@@ -1,4 +1,4 @@
-import { HashMap, Entry } from "./HashMap.ts"
+const { HashMap, Entry } = require("./HashMap.js")
 
 describe('A newly constructed HashMap', () => {
   test(`has 16 buckets`, () => {
@@ -172,7 +172,7 @@ describe('clear', () => {
 
 describe('entries returns', () => {
   test('an empty array when the HashMap is empty', () => {
-    expect(new HashMap().keys).toEqual(new Array<Entry>())
+    expect(new HashMap().keys).toEqual([])
   })
   test('an array containing all the entries when the HashMap is not empty', () => {
     const map = new HashMap()
@@ -189,7 +189,7 @@ describe('entries returns', () => {
 
 describe('keys returns', () => {
   test('an empty array when the HashMap is empty', () => {
-    expect(new HashMap().keys).toEqual(new Array<string>())
+    expect(new HashMap().keys).toEqual([])
   })
   test('an array containing all the keys when the HashMap is not empty', () => {
     const map = new HashMap()
@@ -202,7 +202,7 @@ describe('keys returns', () => {
 
 describe('values returns', () => {
   test('an empty array when the HashMap is empty', () => {
-    expect(new HashMap().values).toEqual(new Array<string>())
+    expect(new HashMap().values).toEqual([])
   })
   test('an array containing all the values when the HashMap is not empty', () => {
     const map = new HashMap()
@@ -219,7 +219,7 @@ describe('The number of buckets', () => {
     const loadThreshold = 0.75
     const map = new HashMap(initSize, loadThreshold)
 
-    for (let i = 0; i < loadThreshold * initSize; i++) 
+    for (let i = 0; i < loadThreshold * initSize; i++)
       map.set("key" + i, "value" + 1)
 
     expect(map.numberOfBuckets).toBe(initSize)
@@ -228,8 +228,8 @@ describe('The number of buckets', () => {
     const initSize = 16
     const loadThreshold = 0.75
     const map = new HashMap(initSize, loadThreshold)
-    
-    for (let i = 0; i < loadThreshold * initSize; i++) 
+
+    for (let i = 0; i < loadThreshold * initSize; i++)
       map.set("key" + i, "value" + 1)
 
     expect(map.numberOfBuckets).toBe(initSize)

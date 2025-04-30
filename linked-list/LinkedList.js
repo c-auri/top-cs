@@ -1,9 +1,9 @@
-import { Node } from './Node'
+const { Node } = require('./Node.js')
 
-export class LinkedList {
-    #head: Node | null
+class LinkedList {
+    #head
 
-    constructor(...values: any[]) {
+    constructor(...values) {
         this.#head = null
 
         for (const value of values) {
@@ -15,7 +15,7 @@ export class LinkedList {
      * Returns the first value in the list.
      */
     get head() {
-        if (this.#head === null) {
+        if (!this.#head) {
             return null
         }
 
@@ -28,7 +28,7 @@ export class LinkedList {
     get tail() {
         let current = this.#head
 
-        while (current !== null && current.nextNode !== null) {
+        while (current && current.nextNode) {
             current = current.nextNode
         }
 
@@ -39,14 +39,14 @@ export class LinkedList {
      * Returns the number of values in the list.
      */
     get size() {
-        if (this.#head === null) {
+        if (!this.#head) {
             return 0
         }
 
         let current = this.#head
         let size = 1
 
-        while (current !== null && current.nextNode !== null) {
+        while (current && current.nextNode) {
             current = current.nextNode
             size++
         }
@@ -57,10 +57,10 @@ export class LinkedList {
     /**
      * Returns whether the list contains the given value.
      */
-    contains(value: any) {
+    contains(value) {
         let current = this.#head
 
-        while (current !== null) {
+        while (current) {
             if (current.value === value) {
                 return true
             }
@@ -74,11 +74,11 @@ export class LinkedList {
     /**
      * Returns the index position of the given value.
      */
-    find(value: any) {
+    find(value) {
         let currentNode = this.#head
         let currentPosition = 0
 
-        while (currentNode !== null) {
+        while (currentNode) {
             if (currentNode.value === value) {
                 return currentPosition
             }
@@ -93,14 +93,18 @@ export class LinkedList {
     /**
      * Returns the value at the given index position.
      */
-    at(index: number) {
-        return this.#nodeAt(index)?.value ?? null
+    at(index) {
+        const result = this.#nodeAt(index)?.value
+        if (!!result)
+            return result
+        else
+            return null
     }
 
     /**
      * Adds the given value to the given index position.
      */
-    insertAt(value: any, index: number) {
+    insertAt(value, index) {
         if (index < 0 || index > this.size) {
             throw new Error('index out of bounds')
         }
@@ -117,29 +121,29 @@ export class LinkedList {
 
         const nodeToInsert = new Node(value)
         const nodeBefore = this.#nodeAt(index - 1)
-        const nodeAfter = nodeBefore!.nextNode
+        const nodeAfter = nodeBefore.nextNode
 
-        nodeBefore!.nextNode = nodeToInsert
+        nodeBefore.nextNode = nodeToInsert
         nodeToInsert.nextNode = nodeAfter
     }
 
     /**
      * Adds the given value to the start of the list.
      */
-    append(value: any) {
+    append(value) {
         const newNode = new Node(value)
 
-        if (this.#head === null) {
+        if (!this.#head) {
             this.#head = newNode
         } else {
-            this.#nodeAt(this.size - 1)!.nextNode = newNode
+            this.#nodeAt(this.size - 1).nextNode = newNode
         }
     }
 
     /**
      * Adds the given value to the end of the list.
      */
-    prepend(value: any) {
+    prepend(value) {
         const newHead = new Node(value, this.#head)
         this.#head = newHead
     }
@@ -148,12 +152,12 @@ export class LinkedList {
      * Concatenates this list with another list. Does not change inputs.
      * @returns the concatenation.
      */
-    concat(other: LinkedList) {
+    concat(other) {
         const result = new LinkedList(...this.toArray())
 
         if (other.size > 0) {
             for (let i = 0; i < other.size; i++) {
-                result.append(other.#nodeAt(i)!.value)
+                result.append(other.#nodeAt(i).value)
             }
         }
 
@@ -164,7 +168,7 @@ export class LinkedList {
      * Removes the value at the given index position.
      * @returns the removed value.
      */
-    removeAt(index: number) {
+    removeAt(index) {
         if (index < 0 || index >= this.size) {
             throw new Error('index out of bounds')
         }
@@ -172,11 +176,11 @@ export class LinkedList {
         const value = this.at(index)
 
         if (index === 0) {
-            this.#head = this.#head!.nextNode
+            this.#head = !!this.#head ? this.#head.nextNode : null
         } else if (index === this.size - 1) {
             this.pop()
         } else {
-            this.#nodeAt(index - 1)!.nextNode = this.#nodeAt(index + 1)
+            this.#nodeAt(index - 1).nextNode = this.#nodeAt(index + 1)
         }
 
         return value
@@ -187,7 +191,7 @@ export class LinkedList {
      * @returns the removed value.
      */
     shift() {
-        if (this.#head === null) {
+        if (this.size === 0) {
             throw new Error('List is empty')
         }
 
@@ -212,9 +216,9 @@ export class LinkedList {
         }
 
         let previous = this.#head
-        let current = previous.nextNode!
+        let current = previous.nextNode
 
-        while (current.nextNode !== null) {
+        while (current.nextNode) {
             previous = current
             current = current.nextNode
         }
@@ -231,7 +235,7 @@ export class LinkedList {
         let result = ''
         let current = this.#head
 
-        while (current !== null) {
+        while (current) {
             result += `( ${current.value} ) -> `
             current = current.nextNode
         }
@@ -248,7 +252,7 @@ export class LinkedList {
         const result = []
         let current = this.#head
 
-        while (current !== null) {
+        while (current) {
             result.push(current.value)
             current = current.nextNode
         }
@@ -259,7 +263,7 @@ export class LinkedList {
     /**
      * Returns the node at the given index position.
      */
-    #nodeAt(index: number) {
+    #nodeAt(index) {
         if (index < 0) {
             throw new Error('index must be non-negative')
         }
@@ -271,7 +275,7 @@ export class LinkedList {
         let currentNode = this.#head
         let currentPosition = 0
 
-        while (index !== currentPosition && currentNode !== null) {
+        while (index !== currentPosition && currentNode) {
             currentNode = currentNode.nextNode
             currentPosition++
         }
@@ -279,3 +283,5 @@ export class LinkedList {
         return currentNode
     }
 }
+
+module.exports = { LinkedList }

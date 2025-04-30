@@ -1,5 +1,5 @@
-import { Node } from "./Node.ts"
-import { Tree } from "./Tree.ts"
+const { Node } = require("./Node.js")
+const { Tree } = require("./Tree.js")
 
 describe('Constructor', () => {
     test('removes duplicates', () => {
@@ -189,19 +189,19 @@ describe('delete', () => {
             expect(tree.find(1)).toBeFalsy()
         })
         test('when passed value of node with two children that are leafs', () => {
-            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const inorderValues = Array.from({ length: 15 }, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(4)
             expect(tree.find(4)).toBeFalsy()
         })
         test('when passed value of node with two children that are not leafs', () => {
-            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const inorderValues = Array.from({ length: 15 }, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(2)
             expect(tree.find(2)).toBeFalsy()
         })
         test('when passed value of node with two children and inorder successor has a child', () => {
-            const inorderValues = Array.from({length: 31}, (_, i) => i + 1)
+            const inorderValues = Array.from({ length: 31 }, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(10)
             tree.delete(11)
@@ -245,7 +245,7 @@ describe('delete', () => {
             expect(tree.find(6)).toBeTruthy()
         })
         test('when passed value of node with two children that are leafs', () => {
-            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const inorderValues = Array.from({ length: 15 }, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(4)
 
@@ -256,7 +256,7 @@ describe('delete', () => {
             }
         })
         test('when passed value of node with two children that are not leafs', () => {
-            const inorderValues = Array.from({length: 15}, (_, i) => i + 1)
+            const inorderValues = Array.from({ length: 15 }, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(2)
 
@@ -267,7 +267,7 @@ describe('delete', () => {
             }
         })
         test('when passed value of node with two children and inorder successor has a child', () => {
-            const inorderValues = Array.from({length: 31}, (_, i) => i + 1)
+            const inorderValues = Array.from({ length: 31 }, (_, i) => i + 1)
             const tree = new Tree(...inorderValues)
             tree.delete(10)
             tree.delete(11)
@@ -400,6 +400,6 @@ describe('postorder', () => {
     })
 })
 
-function doubleValue(node: Node) {
-    return node.data as number * 2
+function doubleValue(node) {
+    return node.data * 2
 }

@@ -1,6 +1,6 @@
-import { Node } from './Node.ts'
-import { Tree } from './Tree.ts'
-import { recursiveFibs } from '../fibonacci/fibs.ts'
+const { Node } = require('./Node.js')
+const { Tree } = require('./Tree.js')
+const { recursiveFibs } = require('../fibonacci/fibs.js')
 
 const fibs = recursiveFibs(23)
 const tree = new Tree(...fibs.slice(3, 13))
@@ -34,11 +34,11 @@ console.log(`pre-order: ${tree.preorder().join(', ')}`)
 console.log(`post-order: ${tree.postorder().join(', ')}`)
 console.log()
 
-function print(tree: Tree) {
+function print(tree) {
     printNode(tree.root)
 }
 
-function printNode(node: Node, prefix = "", isLeft = true) {
+function printNode(node, prefix = "", isLeft = true) {
     if (!node) {
         return
     }
@@ -54,8 +54,8 @@ function printNode(node: Node, prefix = "", isLeft = true) {
     }
 }
 
-function getRandomIntInclusive(min: number, max: number) {
+function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+}

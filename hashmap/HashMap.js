@@ -1,10 +1,10 @@
-import { LinkedList } from "../linked-list/LinkedList"
+const { LinkedList } = require("../linked-list/LinkedList")
 
-export class Entry {
-  #key: string
-  #value: string
+class Entry {
+  #key
+  #value
 
-  constructor(key: string, value: string) {
+  constructor(key, value) {
     this.#key = key
     this.#value = value
   }
@@ -18,15 +18,15 @@ export class Entry {
   }
 }
 
-export class HashMap {
-  #initSize: number
-  #loadThreshold: number 
-  #buckets: Array<LinkedList>
+class HashMap {
+  #initSize
+  #loadThreshold
+  #buckets
 
-  constructor(initSize: number = 16, loadThreshold: number = 0.75) {
+  constructor(initSize = 16, loadThreshold = 0.75) {
     this.#initSize = initSize
     this.#loadThreshold = loadThreshold
-    this.#buckets = new Array<LinkedList>()
+    this.#buckets = []
     this.clear()
   }
 
@@ -40,8 +40,8 @@ export class HashMap {
 
   get entries() {
     return this.#buckets.reduce(
-      (result, bucket) => result.concat(bucket.toArray()), 
-      new Array<Entry>())
+      (result, bucket) => result.concat(bucket.toArray()),
+      [])
   }
 
   get keys() {
@@ -52,7 +52,7 @@ export class HashMap {
     return this.entries.map(entry => entry.value)
   }
 
-  set(key: string, value: string) {
+  set(key, value) {
     const hash = this.#hash(key)
 
     console.assert(hash >= 0 && hash < this.#buckets.length, hash)
@@ -73,23 +73,23 @@ export class HashMap {
     }
   }
 
-  has(key: string) {
+  has(key) {
     return this.#buckets[this.#hash(key)]
       .toArray()
       .map(entry => entry.key)
       .includes(key)
   }
 
-  get(key: string) {
+  get(key) {
     if (!this.has(key))
       return null
 
-    const bucket = this.#buckets[this.#hash(key)]!.toArray()
+    const bucket = this.#buckets[this.#hash(key)].toArray()
     const index = bucket.findIndex(entry => entry.key === key)
     return bucket[index].value
   }
 
-  remove(key: string) {
+  remove(key) {
     const hash = this.#hash(key)
     const index = this.#buckets[hash].toArray().map(entry => entry.key).indexOf(key)
 
@@ -102,13 +102,13 @@ export class HashMap {
   }
 
   clear(size = this.#initSize) {
-    this.#buckets = new Array<LinkedList>()
+    this.#buckets = []
 
     for (let i = 0; i < size; i++)
       this.#buckets[i] = new LinkedList()
   }
 
-  #hash(key: string) {
+  #hash(key) {
     let result = 0
     const prime = 31
 
@@ -120,3 +120,5 @@ export class HashMap {
     return result;
   }
 }
+
+module.exports = { HashMap, Entry }

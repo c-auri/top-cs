@@ -1,15 +1,15 @@
-import { Coordinate } from "./Coordinate"
+const { Coordinate } = require("./Coordinate")
 
-export class Path {
-    target: Coordinate
-    start: Path | null
+class Path {
+    target
+    start
 
-    constructor(target: Coordinate, start: Path | null = null) {
+    constructor(target, start) {
         this.target = target
         this.start = start
     }
 
-    toString(): string {
+    toString() {
         if (!this.start) {
             return this.target.toString()
         }
@@ -17,3 +17,5 @@ export class Path {
         return `${this.start.toString()} -> ${this.target.toString()}`
     }
 }
+
+module.exports = { Path }

@@ -1,22 +1,22 @@
-import { LinkedList } from "../linked-list/LinkedList.ts"
+const { LinkedList } = require("../linked-list/LinkedList.js")
 
-export class Node {
-    data: any
-    left: Node | null
-    right: Node | null
+class Node {
+    data
+    left
+    right
 
-    constructor(data: any, left: Node | null = null, right: Node | null = null) {
+    constructor(data, left, right) {
         this.data = data
         this.left = left
         this.right = right
     }
 
     get hasLeft() {
-        return this.left !== null
+        return !!this.left
     }
 
     get hasRight() {
-        return this.right !== null
+        return !!this.right
     }
 
     get isLeaf() {
@@ -43,14 +43,14 @@ export class Node {
         return height
     }
 
-    get isBalanced(): boolean {
+    get isBalanced() {
         return this.isLeaf
-            || !this.hasLeft && this.right!.height === 1
-            || !this.hasRight && this.left!.height === 1
-            || this.hasLeft && this.hasRight && this.left!.isBalanced && this.right!.isBalanced
+            || !this.hasLeft && this.right.height === 1
+            || !this.hasRight && this.left.height === 1
+            || this.hasLeft && this.hasRight && this.left.isBalanced && this.right.isBalanced
     }
 
-    depth(key: any) {
+    depth(key) {
         let depth = 0
         let currentLevel = new LinkedList()
         let nextLevel = new LinkedList(this)
@@ -59,7 +59,7 @@ export class Node {
             currentLevel = nextLevel
             nextLevel = new LinkedList()
 
-            while(currentLevel.size > 0) {
+            while (currentLevel.size > 0) {
                 const node = currentLevel.shift()
                 node.appendChildrenTo(nextLevel)
 
@@ -74,7 +74,7 @@ export class Node {
         return null
     }
 
-    appendChildrenTo(list: LinkedList) {
+    appendChildrenTo(list) {
         if (this.hasLeft) {
             list.append(this.left)
         }
@@ -84,25 +84,25 @@ export class Node {
         }
     }
 
-    find(key: any, parent: Node | null = null): { target: Node | null, parent: Node | null } {
+    find(key, parent) {
         if (this.data === key) {
             return { target: this, parent: parent }
         } else if (this.data < key && this.hasRight) {
-            return this.right!.find(key, this)
+            return this.right.find(key, this)
         } else if (this.data > key && this.hasLeft) {
-            return this.left!.find(key, this)
+            return this.left.find(key, this)
         } else {
             return { target: null, parent: null }
         }
     }
 
-    insert(key: any) {
+    insert(key) {
         if (this.data > key) {
-            this.hasLeft ? this.left!.insert(key) : this.left = new Node(key)
+            this.hasLeft ? this.left.insert(key) : this.left = new Node(key)
         }
 
         if (this.data < key) {
-            this.hasRight ? this.right!.insert(key) : this.right = new Node(key)
+            this.hasRight ? this.right.insert(key) : this.right = new Node(key)
         }
     }
 
@@ -122,7 +122,7 @@ export class Node {
         this.data = successor.node.data
     }
 
-    deleteChild(child: Node) {
+    deleteChild(child) {
         const isLeftChild = this.left?.data === child.data
 
         if (!isLeftChild && this.right?.data !== child.data) {
@@ -165,13 +165,13 @@ export class Node {
         let result = new LinkedList()
 
         if (this.hasLeft) {
-            result = result.concat(this.left!.inorder())
+            result = result.concat(this.left.inorder())
         }
 
         result.append(this)
 
         if (this.hasRight) {
-            result = result.concat(this.right!.inorder())
+            result = result.concat(this.right.inorder())
         }
 
         return result
@@ -183,11 +183,11 @@ export class Node {
         result.append(this)
 
         if (this.hasLeft) {
-            result = result.concat(this.left!.preorder())
+            result = result.concat(this.left.preorder())
         }
 
         if (this.hasRight) {
-            result = result.concat(this.right!.preorder())
+            result = result.concat(this.right.preorder())
         }
 
         return result
@@ -197,11 +197,11 @@ export class Node {
         let result = new LinkedList()
 
         if (this.hasLeft) {
-            result = result.concat(this.left!.postorder())
+            result = result.concat(this.left.postorder())
         }
 
         if (this.hasRight) {
-            result = result.concat(this.right!.postorder())
+            result = result.concat(this.right.postorder())
         }
 
         result.append(this)
@@ -214,22 +214,24 @@ export class Node {
             `data: ${this.data}, ` +
             `left: ${this.left?.data ?? "null"}, ` +
             `right: ${this.right?.data ?? "null"}` +
-        " }"
+            " }"
     }
 
-    #findInorderSuccessor(): { node: Node , parent: Node } | null {
+    #findInorderSuccessor() {
         if (!this.hasRight) {
             return null
         }
 
-        let parent = this as Node
-        let node = this.right!
+        let parent = this
+        let node = this.right
 
         while (node.hasLeft) {
             parent = node
-            node = node.left!
+            node = node.left
         }
 
         return { node, parent }
     }
 }
+
+module.exports = { Node }

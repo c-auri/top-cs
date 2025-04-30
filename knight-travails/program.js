@@ -1,5 +1,5 @@
-import { Coordinate } from "./Coordinate"
-import { findShortestPaths } from "./ShortestPath"
+const { Coordinate } = require("./Coordinate")
+const { findShortestPaths } = require("./ShortestPath")
 
 try {
     runProgram()
@@ -16,11 +16,11 @@ function runProgram() {
         throw new Error('Malformed arguments')
     }
 
-    const [ startColumn, startRow ] = process.argv[2].split('')
-    const [ goalColumn, goalRow ] = process.argv[3].split('')
+    const [startColumn, startRow] = process.argv[2].split('')
+    const [goalColumn, goalRow] = process.argv[3].split('')
 
-    const start =  new Coordinate(startColumn, startRow)
-    const goal =  new Coordinate(goalColumn, goalRow)
+    const start = new Coordinate(startColumn, startRow)
+    const goal = new Coordinate(goalColumn, goalRow)
     const shortestPaths = findShortestPaths(start, goal)
     const length = shortestPaths.length
 
@@ -32,7 +32,7 @@ function runProgram() {
     }
 }
 
-function handle(error: any) {
+function handle(error) {
     if (error instanceof Error) {
         console.log(error.message)
     } else {

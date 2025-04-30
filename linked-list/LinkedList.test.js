@@ -1,4 +1,4 @@
-import { LinkedList } from "./LinkedList.ts";
+const { LinkedList } = require("./LinkedList.js")
 
 describe('A newly constructed list', () => {
     describe('without provided values', () => {
@@ -247,8 +247,8 @@ describe('Prepending a value', () => {
 })
 
 describe('Concat', () => {
-    describe('returns the empty list', ()=> {
-        test('for two empty lists', ()=> {
+    describe('returns the empty list', () => {
+        test('for two empty lists', () => {
             const list1 = new LinkedList()
             const list2 = new LinkedList()
             const result = list1.concat(list2)
@@ -275,7 +275,7 @@ describe('Concat', () => {
             expect(result).toEqual(new LinkedList('head1', 'tail1', 'head2', 'tail2'))
         })
     })
-    test('does not change the input lists', ()=> {
+    test('does not change the input lists', () => {
         const list1 = new LinkedList('head1', 'tail1')
         const list2 = new LinkedList('head2', 'tail2')
         list1.concat(list2)

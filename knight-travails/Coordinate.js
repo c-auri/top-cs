@@ -1,8 +1,8 @@
-export class Coordinate {
-    column: string
-    row: string
+class Coordinate {
+    column
+    row
 
-    static isValid(column: string, row: string) {
+    static isValid(column, row) {
         return column.length === 1
             && row.length === 1
             && column.charCodeAt(0) >= 65
@@ -11,7 +11,7 @@ export class Coordinate {
             && row.charCodeAt(0) <= 56
     }
 
-    constructor(column: string, row: string) {
+    constructor(column, row) {
         if (!Coordinate.isValid(column, row)) {
             throw Error('Invalid coordinate')
         }
@@ -28,7 +28,7 @@ export class Coordinate {
         return this.row.charCodeAt(0)
     }
 
-    tryAdd(numberOfColumns: number, numberOfRows: number) {
+    tryAdd(numberOfColumns, numberOfRows) {
         const newColumn = String.fromCharCode(this.columnCode + numberOfColumns)
         const newRow = String.fromCharCode(this.rowCode + numberOfRows)
 
@@ -39,7 +39,7 @@ export class Coordinate {
         }
     }
 
-    equals(other: Coordinate) {
+    equals(other) {
         return this.column === other.column
             && this.row === other.row
     }
@@ -49,3 +49,4 @@ export class Coordinate {
     }
 }
 
+module.exports = { Coordinate }

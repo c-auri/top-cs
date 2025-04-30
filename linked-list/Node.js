@@ -1,8 +1,8 @@
-export class Node {
+class Node {
     value
     nextNode
 
-    constructor(value: any | null = null, nextNode: Node | null = null) {
+    constructor(value, nextNode) {
         this.value = value
         this.nextNode = nextNode
     }
@@ -11,3 +11,5 @@ export class Node {
         return this.nextNode !== null
     }
 }
+
+module.exports = { Node }
